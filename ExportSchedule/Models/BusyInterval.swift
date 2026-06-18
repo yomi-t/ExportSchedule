@@ -12,13 +12,16 @@ import Foundation
 struct BusyInterval: Comparable, Sendable, Hashable {
     var start: Date
     var end: Date
-    /// 終日予定かどうか。終日予定はその日の営業時間全体を埋める扱いにする。
+    /// 終日予定かどうか。終日予定はその日の候補時間全体を埋める扱いにする。
     var isAllDay: Bool
+    /// 予定のタイトル（UI 表示用）。空き時間計算では使用しない。
+    var title: String
 
-    init(start: Date, end: Date, isAllDay: Bool = false) {
+    init(start: Date, end: Date, isAllDay: Bool = false, title: String = "") {
         self.start = start
         self.end = end
         self.isAllDay = isAllDay
+        self.title = title
     }
 
     /// 絶対時刻区間としての表現。

@@ -14,7 +14,7 @@ struct FreeSlotCalculatorTests {
     private let calculator = FreeSlotCalculator()
     private let calendar = TestSupport.tokyoCalendar
 
-    // 2026-06-15 は月曜（営業日）。
+    // 2026-06-15 は月曜（曜日）。
     private func singleDaySettings(minimumSlotMinutes: Int = 30) -> FreeSlotSettings {
         let day = TestSupport.date(2026, 6, 15)
         return TestSupport.settings(start: day, end: day, minimumSlotMinutes: minimumSlotMinutes)
@@ -26,7 +26,6 @@ struct FreeSlotCalculatorTests {
                                                     calendar: calendar)
         #expect(result.count == 1)
         let day = try! #require(result.first)
-        #expect(day.isFullyFree)
         #expect(day.freeIntervals.count == 1)
         #expect(day.freeIntervals[0].start == TestSupport.date(2026, 6, 15, 10, 0))
         #expect(day.freeIntervals[0].end == TestSupport.date(2026, 6, 15, 18, 0))
@@ -39,7 +38,6 @@ struct FreeSlotCalculatorTests {
                                                     settings: singleDaySettings(),
                                                     calendar: calendar)
         let day = try! #require(result.first)
-        #expect(!day.isFullyFree)
         #expect(day.freeIntervals.count == 2)
         #expect(day.freeIntervals[0].end == TestSupport.date(2026, 6, 15, 12, 0))
         #expect(day.freeIntervals[1].start == TestSupport.date(2026, 6, 15, 13, 0))
@@ -52,7 +50,6 @@ struct FreeSlotCalculatorTests {
                                                     settings: singleDaySettings(),
                                                     calendar: calendar)
         let day = try! #require(result.first)
-        #expect(!day.isFullyFree)
         #expect(day.freeIntervals.isEmpty)
     }
 
@@ -109,7 +106,7 @@ struct FreeSlotCalculatorTests {
     }
 
     @Test func midnightSpanningEventBlocksBothDays() {
-        // 営業時間を 8:00〜23:00 に広げて深夜跨ぎを検証。
+        // 時間帯を 8:00〜23:00 に広げて深夜跨ぎを検証。
         let hours = WorkingHours(start: TimeOfDay(hour: 8, minute: 0),
                                  end: TimeOfDay(hour: 23, minute: 0))
         let settings = TestSupport.settings(start: TestSupport.date(2026, 6, 15),
@@ -137,7 +134,6 @@ struct FreeSlotCalculatorTests {
                                                     settings: singleDaySettings(),
                                                     calendar: calendar)
         let day = try! #require(result.first)
-        #expect(!day.isFullyFree)
         #expect(day.freeIntervals.isEmpty)
     }
 
@@ -217,7 +213,7 @@ struct FreeSlotCalculatorTests {
     }
 
     @Test func bufferFromEventBeforeWindowEatsIntoWindowStart() {
-        // 9:00〜9:50 の予定 + 30分バッファ → 終端 10:20 まで延びて営業開始 10:00 を侵食。
+        // 9:00〜9:50 の予定 + 30分バッファ → 終端 10:20 まで延びて候補開始 10:00 を侵食。
         let day = TestSupport.date(2026, 6, 15)
         let settings = TestSupport.settings(start: day, end: day, bufferMinutes: 30)
         let busy = [BusyInterval(start: TestSupport.date(2026, 6, 15, 9, 0),
@@ -228,6 +224,5 @@ struct FreeSlotCalculatorTests {
         let dayResult = try! #require(result.first)
         #expect(dayResult.freeIntervals.count == 1)
         #expect(dayResult.freeIntervals[0].start == TestSupport.date(2026, 6, 15, 10, 20))
-        #expect(!dayResult.isFullyFree)
     }
 }

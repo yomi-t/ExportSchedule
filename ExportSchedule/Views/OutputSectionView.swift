@@ -10,6 +10,8 @@ import SwiftUI
 struct OutputSectionView: View {
     @Bindable var viewModel: ScheduleViewModel
     @State private var didCopy = false
+    /// 最後に生成された出力テキストを初期値とし、その場で編集できる本文。
+    @State private var editableText = ""
 
     var body: some View {
         Section("出力") {
@@ -24,22 +26,25 @@ struct OutputSectionView: View {
                     .foregroundStyle(.secondary)
                     .font(.callout)
             } else {
-                Text(viewModel.outputText)
+                TextEditor(text: $editableText)
                     .font(.body.monospaced())
-                    .textSelection(.enabled)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(minHeight: 160)
+                    .frame(maxWidth: .infinity)
 
                 Button {
-                    viewModel.copyToClipboard()
+                    Clipboard.copy(editableText)
                     didCopy = true
                 } label: {
                     Label(didCopy ? "コピーしました" : "クリップボードにコピー",
                           systemImage: didCopy ? "checkmark" : "doc.on.doc")
                 }
-                .onChange(of: viewModel.outputText) { _, _ in
-                    didCopy = false
-                }
             }
+        }
+        // 出力が生成・更新されたら、その最新テキストをエディタの初期値として反映する。
+        .onAppear { editableText = viewModel.outputText }
+        .onChange(of: viewModel.outputText) { _, newValue in
+            editableText = newValue
+            didCopy = false
         }
     }
 }

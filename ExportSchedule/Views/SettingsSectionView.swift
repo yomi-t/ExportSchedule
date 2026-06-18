@@ -2,7 +2,7 @@
 //  SettingsSectionView.swift
 //  ExportSchedule
 //
-//  期間・営業時間・最小スロットを編集する設定セクション。
+//  期間・時間帯・最小スロットを編集する設定セクション。
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ struct SettingsSectionView: View {
             DatePicker("終了日", selection: $viewModel.settings.rangeEnd, displayedComponents: .date)
         }
 
-        Section("営業日") {
+        Section("曜日") {
             HStack {
                 ForEach(1...7, id: \.self) { weekday in
                     weekdayToggle(weekday)
@@ -27,12 +27,12 @@ struct SettingsSectionView: View {
             }
         }
 
-        Section("営業時間") {
+        Section("時間帯") {
             DatePicker("開始", selection: workingStartBinding, displayedComponents: .hourAndMinute)
             DatePicker("終了", selection: workingEndBinding, displayedComponents: .hourAndMinute)
         }
 
-        Section("最小スロット") {
+        Section("最小予定時間") {
             Stepper(value: $viewModel.settings.minimumSlotMinutes, in: 5...480, step: 5) {
                 Text("\(viewModel.settings.minimumSlotMinutes) 分以上")
             }
@@ -63,7 +63,7 @@ struct SettingsSectionView: View {
         return parts
     }
 
-    // MARK: - 営業日トグル
+    // MARK: - 曜日トグル
 
     private func weekdayToggle(_ weekday: Int) -> some View {
         let isOn = viewModel.settings.weeklyWorkingHours.hoursByWeekday[weekday] != nil
@@ -90,9 +90,9 @@ struct SettingsSectionView: View {
         viewModel.settings.weeklyWorkingHours.hoursByWeekday = map
     }
 
-    // MARK: - 営業時間バインディング
+    // MARK: - 時間帯バインディング
 
-    /// 現在の代表的な営業時間（有効曜日のうち最小 weekday のもの、なければデフォルト）。
+    /// 現在の代表的な時間帯（有効曜日のうち最小 weekday のもの、なければデフォルト）。
     private var representativeHours: WorkingHours {
         let map = viewModel.settings.weeklyWorkingHours.hoursByWeekday
         if let key = map.keys.sorted().first, let hours = map[key] {

@@ -13,7 +13,7 @@ struct FreeSlotSettings: Codable, Sendable, Hashable {
     var rangeStart: Date
     /// 期間の終了日（この日を含む）。
     var rangeEnd: Date
-    /// 曜日ごとの営業時間。
+    /// 曜日ごとの時間帯。
     var weeklyWorkingHours: WeeklyWorkingHours
     /// 抽出する空きスロットの最小分数（これ未満の空きは除外）。
     var minimumSlotMinutes: Int

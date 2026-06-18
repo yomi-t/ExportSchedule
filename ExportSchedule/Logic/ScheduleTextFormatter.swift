@@ -30,9 +30,6 @@ struct ScheduleTextFormatter {
 
     private func line(for availability: DateAvailability, calendar: Calendar) -> String {
         let prefix = datePrefix(for: availability.day, calendar: calendar)
-        if availability.isFullyFree {
-            return "\(prefix) 終日OK"
-        }
         let ranges = availability.freeIntervals
             .map { timeRangeText(for: $0, calendar: calendar) }
             .joined(separator: ", ")

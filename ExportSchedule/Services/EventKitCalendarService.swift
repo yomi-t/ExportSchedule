@@ -38,10 +38,10 @@ final class EventKitCalendarService: CalendarEventProviding, @unchecked Sendable
         try await store.requestFullAccessToEvents()
     }
 
-    func busyIntervals(from start: Date, to end: Date) async throws -> [BusyInterval] {
+    func busyIntervals(from start: Date, to end: Date) async -> [BusyInterval] {
         let store = self.store
         // events(matching:) は同期かつ重い処理のためメインアクター外で実行する。
-        return try await Task.detached(priority: .userInitiated) {
+        return await Task.detached(priority: .userInitiated) {
             let predicate = store.predicateForEvents(withStart: start, end: end, calendars: nil)
             let events = store.events(matching: predicate)
             return events
@@ -50,7 +50,8 @@ final class EventKitCalendarService: CalendarEventProviding, @unchecked Sendable
                 .map { event in
                     BusyInterval(start: event.startDate,
                                  end: event.endDate,
-                                 isAllDay: event.isAllDay)
+                                 isAllDay: event.isAllDay,
+                                 title: event.title ?? "")
                 }
                 .sorted()
         }.value

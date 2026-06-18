@@ -2,7 +2,7 @@
 //  FreeSlotCalculator.swift
 //  ExportSchedule
 //
-//  予定（BusyInterval）・期間・営業時間・最小スロットから、日ごとの空き時間を計算する純粋ロジック。
+//  予定（BusyInterval）・期間・時間帯・最小スロットから、日ごとの空き時間を計算する純粋ロジック。
 //  EventKit には一切依存せず、Foundation のみで完結するためテスト可能。
 //
 
@@ -13,33 +13,38 @@ struct FreeSlotCalculator {
     /// 日ごとの空き状況を計算する。
     /// - Parameters:
     ///   - busyIntervals: 予定の一覧（`.free` 扱いの予定は除外済みであること）。
-    ///   - settings: ユーザー設定（期間・営業時間・最小分など）。
+    ///   - settings: ユーザー設定（期間・時間帯・最小分など）。
     ///   - calendar: 日付計算に用いるカレンダー（`timeZone` は settings と一致させること）。
-    /// - Returns: 稼働日ごとの空き状況（非稼働日・表示すべき内容のない日は含まない）。
+    /// - Returns: 稼働日ごとの空き状況（非稼働日は含まない）。
     func computeAvailability(busyIntervals: [BusyInterval],
                             settings: FreeSlotSettings,
                             calendar: Calendar) -> [DateAvailability] {
+        computeDaySchedules(busyIntervals: busyIntervals, settings: settings, calendar: calendar)
+            .map { DateAvailability(day: $0.day, freeIntervals: $0.freeIntervals) }
+    }
+
+    /// 日ごとの表示用スケジュール（候補ウィンドウ・候補区間・既存予定）を計算する。
+    /// 空き時間の算出ロジックは `computeAvailability` と共通で、加えて UI 描画に必要な
+    /// 候補ウィンドウと（バッファ適用前の）既存予定を保持する。
+    func computeDaySchedules(busyIntervals: [BusyInterval],
+                             settings: FreeSlotSettings,
+                             calendar: Calendar) -> [DaySchedule] {
         // 1. 正規化：終日予定はそのまま保持し、それ以外は正の長さのものだけ残す。
         let normalized = busyIntervals.filter { $0.isAllDay || $0.range.isValid }
+        let timedEvents = normalized.filter { !$0.isAllDay }
+        let allDayEvents = normalized.filter { $0.isAllDay }
 
         // 2. 通常予定の絶対時刻区間を、前後バッファ分だけ広げてからマージ（終日予定は別途扱う）。
         //    バッファにより、予定の直前・直後に空きが生じないようにする。
         let buffer = TimeInterval(max(0, settings.bufferMinutes) * 60)
-        let timedRanges = normalized.filter { !$0.isAllDay }.map { interval -> DateRange in
+        let timedRanges = timedEvents.map { interval -> DateRange in
             DateRange(start: interval.start.addingTimeInterval(-buffer),
                       end: interval.end.addingTimeInterval(buffer))
         }
         let mergedBusy = Self.mergeRanges(timedRanges)
 
-        // 終日予定が占有する日（startOfDay）の集合。
-        let allDayDays: Set<Date> = Set(
-            normalized.filter { $0.isAllDay }.flatMap { interval -> [Date] in
-                daysCovered(by: interval, calendar: calendar)
-            }
-        )
-
         // 3. 期間内の各日を列挙。
-        var result: [DateAvailability] = []
+        var result: [DaySchedule] = []
         let firstDay = calendar.startOfDay(for: settings.rangeStart)
         let lastDay = calendar.startOfDay(for: settings.rangeEnd)
         guard firstDay <= lastDay else { return result }
@@ -50,39 +55,44 @@ struct FreeSlotCalculator {
                 day = calendar.date(byAdding: .day, value: 1, to: day) ?? lastDay.addingTimeInterval(86_400 * 2)
             }
 
-            // 4. 営業ウィンドウを構築（非稼働日はスキップ）。
+            // 4. 候補ウィンドウを構築（非稼働日はスキップ）。
             let weekday = calendar.component(.weekday, from: day)
             guard let workingHours = settings.weeklyWorkingHours.workingHours(forWeekday: weekday),
-                  let window = workingWindow(for: day, hours: workingHours, calendar: calendar),
+                  let window = Self.workingWindow(for: day, hours: workingHours, calendar: calendar),
                   window.isValid else {
                 continue
             }
 
-            // 終日予定がある日は営業ウィンドウ全体が埋まる扱い。
-            if allDayDays.contains(day) {
-                result.append(DateAvailability(day: day, freeIntervals: [], isFullyFree: false))
+            // この日を覆う終日予定。
+            let allDayForDay = allDayEvents.filter { daysCovered(by: $0, calendar: calendar).contains(day) }
+            // 候補ウィンドウと交差する時間指定予定（表示用に元の時刻のまま保持）。
+            let timedForDay = timedEvents.filter { $0.range.overlaps(window) }.sorted()
+            let events = (allDayForDay + timedForDay).sorted()
+
+            // 終日予定がある日は候補ウィンドウ全体が埋まる扱い。
+            if !allDayForDay.isEmpty {
+                result.append(DaySchedule(day: day, window: window, freeIntervals: [], events: events))
                 continue
             }
 
             // 5. ウィンドウからマージ済み予定を差し引く。
             let intersecting = mergedBusy.filter { $0.overlaps(window) }
             let rawFree = Self.subtract(busy: intersecting, from: window)
-            let isFullyFree = intersecting.isEmpty
 
             // 6. 最小スロットでフィルタ。
             let minimumSeconds = TimeInterval(settings.minimumSlotMinutes * 60)
             let filtered = rawFree.filter { $0.duration >= minimumSeconds }
 
-            result.append(DateAvailability(day: day, freeIntervals: filtered, isFullyFree: isFullyFree))
+            result.append(DaySchedule(day: day, window: window, freeIntervals: filtered, events: events))
         }
 
         return result
     }
 
-    // MARK: - 営業ウィンドウ
+    // MARK: - 候補ウィンドウ
 
-    /// 指定日の営業時間を絶対時刻区間に変換する。`end <= start` の場合は翌日にまたぐ夜間シフトとして扱う。
-    private func workingWindow(for day: Date, hours: WorkingHours, calendar: Calendar) -> DateRange? {
+    /// 指定日の時間帯を絶対時刻区間に変換する。`end <= start` の場合は翌日にまたぐ夜間シフトとして扱う。
+    static func workingWindow(for day: Date, hours: WorkingHours, calendar: Calendar) -> DateRange? {
         guard let start = calendar.date(bySettingHour: hours.start.hour,
                                         minute: hours.start.minute,
                                         second: 0,

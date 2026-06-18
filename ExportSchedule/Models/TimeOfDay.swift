@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// 1日の中の時刻（時・分）。日付を持たず、営業時間の境界などに使う。
+/// 1日の中の時刻（時・分）。日付を持たず、候補時間の境界などに使う。
 struct TimeOfDay: Comparable, Codable, Sendable, Hashable {
     var hour: Int
     var minute: Int
