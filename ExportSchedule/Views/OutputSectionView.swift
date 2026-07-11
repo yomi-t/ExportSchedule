@@ -14,7 +14,7 @@ struct OutputSectionView: View {
     @State private var editableText = ""
 
     var body: some View {
-        Section("出力") {
+        AppSection("出力") {
             if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
@@ -22,21 +22,29 @@ struct OutputSectionView: View {
             }
 
             if viewModel.outputText.isEmpty {
-                Text("「空き時間を生成」を押すと、ここに結果が表示されます。")
+                Text("「空き時間を出力」を押すと、ここに結果が表示されます。")
                     .foregroundStyle(.secondary)
                     .font(.callout)
             } else {
                 TextEditor(text: $editableText)
                     .font(.body.monospaced())
-                    .frame(minHeight: 160)
+                    .scrollDisabled(true)
+                    .scrollContentBackground(.hidden)
                     .frame(maxWidth: .infinity)
-
-                Button {
-                    Clipboard.copy(editableText)
-                    didCopy = true
-                } label: {
-                    Label(didCopy ? "コピーしました" : "クリップボードにコピー",
-                          systemImage: didCopy ? "checkmark" : "doc.on.doc")
+                    .background(.base)
+                    .cornerRadius(8)
+                HStack {
+                    Spacer()
+                    Button {
+                        Clipboard.copy(editableText)
+                        didCopy = true
+                    } label: {
+                        Label(didCopy ? "コピーしました" : "コピー",
+                              systemImage: didCopy ? "checkmark" : "doc.on.doc")
+                        .bold()
+                        .padding()
+                        .glassEffect(.regular.interactive())
+                    }
                 }
             }
         }
@@ -48,3 +56,11 @@ struct OutputSectionView: View {
         }
     }
 }
+/// 計測したテキスト本文の高さを伝播するためのプリファレンスキー。
+private struct ContentHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+

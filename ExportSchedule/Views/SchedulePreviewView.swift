@@ -16,7 +16,7 @@ struct SchedulePreviewView: View {
 
     var body: some View {
         if !viewModel.daySchedules.isEmpty {
-            Section {
+            AppSection("候補日プレビュー") {
                 ForEach(viewModel.daySchedules) { schedule in
                     DayScheduleRow(schedule: schedule,
                                    calendar: viewModel.displayCalendar) { index, newRange in
@@ -24,8 +24,6 @@ struct SchedulePreviewView: View {
                     }
                     .padding(.vertical, 4)
                 }
-            } header: {
-                Text("候補日プレビュー")
             } footer: {
                 ColorLegend()
             }
@@ -40,7 +38,7 @@ private struct ColorLegend: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 16) {
-                legendItem(color: .green, label: "候補（空き）")
+                legendItem(color: .appGreen, label: "候補（空き）")
                 legendItem(color: .red, label: "既存の予定")
                 Spacer()
             }
@@ -75,7 +73,7 @@ private struct DayScheduleRow: View {
     private static let weekdaySymbols = ["日", "月", "火", "水", "木", "金", "土"]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 2) {
             // 見出し：日付＋状態バッジ
             HStack {
                 Text(dateLabel)
@@ -247,34 +245,69 @@ private struct FreeSegment: View {
 
     /// 調整できる最小単位（5分）。
     private static let step: TimeInterval = 5 * 60
-    /// 候補区間の最小長（5分）。
-    private static let minDuration: TimeInterval = 5 * 60
+    /// 候補区間の最小長（0＝幅0まで縮められる。幅0の区間は出力に含めない）。
+    private static let minDuration: TimeInterval = 0
     /// ドラッグ操作を受け付ける掴み代の幅。
     private let handleHitWidth: CGFloat = 28
+    /// ハンドル（白いつまみ）の見た目の幅。幅0のバー描画にも使う。
+    private let handleWidth: CGFloat = 4
 
     @State private var draft: DateRange?
     @State private var activeEdge: Edge?
+    /// 幅0から始めたドラッグで操作する端。最初の移動方向で決め、その操作中は固定する。
+    @State private var mergedEdge: Edge?
 
     private enum Edge { case leading, trailing }
 
     /// 描画に使う区間（ドラッグ中は draft、それ以外は確定値）。
     private var current: DateRange { draft ?? range }
 
+    /// 確定値の幅が0かどうか。0のときはハンドルを1つに統合して表示する。
+    /// （ドラッグ中の draft では切り替えず確定値で判定し、操作中にビューが差し替わって
+    /// 　ジェスチャが中断されるのを防ぐ。）
+    private var isCollapsed: Bool { range.duration <= 0 }
+
     var body: some View {
         let metrics = pixelMetrics(for: current)
         ZStack(alignment: .leading) {
             // 緑の帯（本体はヒットさせず、端のハンドルだけドラッグを受ける）
             RoundedRectangle(cornerRadius: 5)
-                .fill(Color.green.opacity(0.75))
                 .frame(width: metrics.length, height: height)
+                .glassEffect(.clear.tint(.barGreen), in: .rect(cornerRadius: 5))
                 .offset(x: metrics.offset)
                 .allowsHitTesting(false)
 
-            handle(.leading, centerX: metrics.offset)
-            handle(.trailing, centerX: metrics.offset + metrics.length)
+            if isCollapsed {
+                // 幅0：統合した1つのハンドル。ドラッグ方向に応じて左右どちらかへ伸びる。
+                // 動いている端は mergedHandle が担当（ドラッグを保持）。
+                mergedHandle(metrics: metrics)
+                // 0からドラッグして幅が出た瞬間、固定側の端にも見た目だけのハンドルを出し、
+                // ジェスチャを途切れさせずに2ハンドル表示へ切り替える。
+                if let edge = activeEdge, current.duration > 0 {
+                    let edges = edgeXs(for: current)
+                    handleVisual(centerX: edge == .trailing ? edges.start : edges.end)
+                }
+            } else {
+                // ハンドルは最小幅クランプを受けない真の端座標に置く。
+                // （緑バーの描画長は最小6pxに切り上げるため、それを使うと
+                // 　区間が短いとき leading ドラッグで trailing も押し出されて見える。）
+                let edges = edgeXs(for: current)
+                handle(.leading, centerX: edges.start)
+                handle(.trailing, centerX: edges.end)
+            }
+
+            // 実幅が0の瞬間だけ、ハンドル中央にハンドル幅の緑の丸を重ねて存在を示す
+            // （確定値ではなくドラッグ中の幅で判定するので、0になった/0でなくなった瞬間に出入りする）。
+            if current.duration <= 0 {
+                Circle()
+                    .fill(Color.appGreen)
+                    .frame(width: handleWidth, height: handleWidth)
+                    .offset(x: edgeXs(for: current).start - handleWidth / 2)
+                    .allowsHitTesting(false)
+            }
 
             if let edge = activeEdge {
-                dragTimeLabel(for: edge, metrics: metrics)
+                dragTimeLabel(for: edge)
             }
         }
     }
@@ -285,11 +318,60 @@ private struct FreeSegment: View {
         // 視認用の白いつまみ＋透明な広いヒット領域。
         RoundedRectangle(cornerRadius: 2)
             .fill(Color.white.opacity(0.95))
-            .frame(width: 4, height: height * 0.55)
+            .frame(width: handleWidth, height: height * 0.55)
             .frame(width: handleHitWidth, height: height)
             .contentShape(Rectangle())
             .offset(x: centerX - handleHitWidth / 2)
             .gesture(dragGesture(for: edge))
+    }
+
+    /// 見た目だけのハンドル（ドラッグは受けない）。マージ中に固定側の端を見せるのに使う。
+    private func handleVisual(centerX: CGFloat) -> some View {
+        RoundedRectangle(cornerRadius: 2)
+            .fill(Color.white.opacity(0.95))
+            .frame(width: handleWidth, height: height * 0.55)
+            .frame(width: handleHitWidth, height: height)
+            .offset(x: centerX - handleHitWidth / 2)
+            .allowsHitTesting(false)
+    }
+
+    /// 幅0のときの統合ハンドル。ドラッグ中は伸びている側の端へ追従する。
+    private func mergedHandle(metrics: (offset: CGFloat, length: CGFloat)) -> some View {
+        // 待機中はバーの左右中央、ドラッグ中は伸びている側の端（真の端座標）へ追従する。
+        let edges = edgeXs(for: current)
+        let centerX: CGFloat
+        switch activeEdge {
+        case .trailing: centerX = edges.end
+        case .leading: centerX = edges.start
+        case .none: centerX = metrics.offset + metrics.length / 2
+        }
+        return RoundedRectangle(cornerRadius: 2)
+            .fill(Color.white.opacity(0.95))
+            .frame(width: handleWidth, height: height * 0.55)
+            .frame(width: handleHitWidth, height: height)
+            .contentShape(Rectangle())
+            .offset(x: centerX - handleHitWidth / 2)
+            .gesture(mergedDragGesture())
+    }
+
+    private func mergedDragGesture() -> some Gesture {
+        DragGesture(minimumDistance: 1)
+            .onChanged { value in
+                // 最初の移動方向で操作する端を決め、その操作中は固定する
+                // （途中で原点を越えて反対へ動かしても切り替えない）。
+                let edge = mergedEdge ?? (value.translation.width >= 0 ? .trailing : .leading)
+                mergedEdge = edge
+                activeEdge = edge
+                draft = updatedRange(for: edge, translationX: value.translation.width)
+            }
+            .onEnded { value in
+                let edge = mergedEdge ?? (value.translation.width >= 0 ? .trailing : .leading)
+                let committed = draft ?? updatedRange(for: edge, translationX: value.translation.width)
+                draft = nil
+                activeEdge = nil
+                mergedEdge = nil
+                onCommit(index, committed)
+            }
     }
 
     private func dragGesture(for edge: Edge) -> some Gesture {
@@ -299,7 +381,10 @@ private struct FreeSegment: View {
                 draft = updatedRange(for: edge, translationX: value.translation.width)
             }
             .onEnded { value in
-                let committed = updatedRange(for: edge, translationX: value.translation.width)
+                // 画面に表示していた draft をそのまま確定する。
+                // onEnded の translation は直前の onChanged とわずかにズレることがあり、
+                // 再計算するとスナップ先が変わって離した瞬間に位置が飛んで見えるため。
+                let committed = draft ?? updatedRange(for: edge, translationX: value.translation.width)
                 draft = nil
                 activeEdge = nil
                 onCommit(index, committed)
@@ -308,16 +393,16 @@ private struct FreeSegment: View {
 
     // MARK: ドラッグ中の時刻ラベル
 
-    private func dragTimeLabel(for edge: Edge, metrics: (offset: CGFloat, length: CGFloat)) -> some View {
+    private func dragTimeLabel(for edge: Edge) -> some View {
         let date = edge == .leading ? current.start : current.end
-        let edgeX = edge == .leading ? metrics.offset : metrics.offset + metrics.length
+        let edges = edgeXs(for: current)
+        let edgeX = edge == .leading ? edges.start : edges.end
         return Text(timeText(date))
             .font(.caption2.bold())
             .monospacedDigit()
             .padding(.horizontal, 6)
             .padding(.vertical, 3)
-            .background(Color.black.opacity(0.78), in: Capsule())
-            .foregroundStyle(.white)
+            .foregroundStyle(.primary)
             .fixedSize()
             // バーの上端より上に浮かせて表示する。
             .position(x: min(max(edgeX, 24), max(24, trackWidth - 24)), y: -12)
@@ -355,13 +440,24 @@ private struct FreeSegment: View {
 
     // MARK: 位置計算
 
+    /// 区間の開始・終了の真のX座標（最小幅クランプなし。ハンドルやラベルの位置に使う）。
+    private func edgeXs(for r: DateRange) -> (start: CGFloat, end: CGFloat) {
+        let total = window.duration
+        guard total > 0 else { return (0, 0) }
+        let clampedStart = max(r.start, window.start)
+        let clampedEnd = min(r.end, window.end)
+        let startX = clampedStart.timeIntervalSince(window.start) / total * Double(trackWidth)
+        let endX = clampedEnd.timeIntervalSince(window.start) / total * Double(trackWidth)
+        return (CGFloat(startX), CGFloat(endX))
+    }
+
     private func pixelMetrics(for r: DateRange) -> (offset: CGFloat, length: CGFloat) {
         let total = window.duration
-        guard total > 0 else { return (0, 6) }
+        guard total > 0 else { return (0, 0) }
         let clampedStart = max(r.start, window.start)
         let clampedEnd = min(r.end, window.end)
         let offset = clampedStart.timeIntervalSince(window.start) / total * Double(trackWidth)
-        let length = max(6, clampedEnd.timeIntervalSince(clampedStart) / total * Double(trackWidth))
+        let length = max(0, clampedEnd.timeIntervalSince(clampedStart) / total * Double(trackWidth))
         return (CGFloat(offset), CGFloat(length))
     }
 
@@ -385,9 +481,8 @@ private struct EventSegment: View {
 
     var body: some View {
         RoundedRectangle(cornerRadius: 5)
-            .fill(Color.red.opacity(0.75))
             .frame(width: width, height: height)
-            .contentShape(RoundedRectangle(cornerRadius: 5))
+            .glassEffect(.clear.tint(.red), in: .rect(cornerRadius: 5))
             .onTapGesture { isShowingDetail = true }
             .popover(
                 isPresented: $isShowingDetail,

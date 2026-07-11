@@ -12,44 +12,73 @@ import UIKit
 
 struct ContentView: View {
     @State private var viewModel = ScheduleViewModel()
+    /// プログラムによるスクロール制御用の位置。
+    @State private var scrollPosition = ScrollPosition()
+    /// 現在の縦スクロールオフセット（相対スクロールの基準に使う）。
+    @State private var scrollOffsetY: CGFloat = 0
 
     var body: some View {
-        Form {
-            SettingsSectionView(viewModel: viewModel)
-
-            Section {
-                Button {
-                    Task { await viewModel.generate() }
-                } label: {
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                    } else {
-                        Text("空き時間を生成")
-                            .bold()
-                            .frame(maxWidth: .infinity)
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 16) {
+                    SettingsSectionView(viewModel: viewModel)
+                    
+                    //            Section {
+                    Button {
+                        Task {
+                            await viewModel.generate()
+                            // 出力に成功したら現在位置から 400pt 下へスクロールする。
+                            if viewModel.errorMessage == nil {
+                                withAnimation {
+                                    scrollPosition.scrollTo(y: scrollOffsetY + 400)
+                                }
+                            }
+                        }
+                    } label: {
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                        } else {
+                            Text("空き時間を出力")
+                                .padding()
+                                .bold()
+                                .frame(maxWidth: .infinity)
+                                .foregroundStyle(.white)
+                                .glassEffect(.regular.tint(.appBlue).interactive())
+                        }
                     }
+                    .disabled(viewModel.isLoading)
+                    Text("カレンダーの変更の反映には時間がかかることがあります。生成前にカレンダーアプリを開いておくと、最新の予定が反映されやすくなります。")
+                        .foregroundStyle(.secondary)
+                        .font(.footnote)
+                    
+                    SchedulePreviewView(viewModel: viewModel)
+                    
+                    OutputSectionView(viewModel: viewModel)
                 }
-                .disabled(viewModel.isLoading)
-            } footer: {
-                Text("カレンダーの変更の反映には時間がかかることがあります。生成前にカレンダーアプリを開いておくと、最新の予定が反映されやすくなります。")
+                .padding(.vertical, 30)
+                .padding(.horizontal, 20)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+    #if os(iOS)
+                // キーボード外をタップしたらキーボードを閉じる。
+                // ウィンドウへ cancelsTouchesInView = false のタップ認識を載せることで、
+                // ボタンやスクロールなどのタップを妨げずに編集を終了できる。
+                .onAppear { KeyboardDismisser.install() }
+    #endif
+    #if os(macOS)
+                .frame(minWidth: 420, minHeight: 560)
+    #endif
             }
-
-            SchedulePreviewView(viewModel: viewModel)
-
-            OutputSectionView(viewModel: viewModel)
+            .background(.base)
+            .scrollPosition($scrollPosition)
+            // スクロール位置の変化を追跡し、相対スクロールの基準値を更新する。
+            .onScrollGeometryChange(for: CGFloat.self) { geometry in
+                geometry.contentOffset.y
+            } action: { _, newValue in
+                scrollOffsetY = newValue
+            }
+            .navigationTitle("空き時間を出力")
         }
-        .formStyle(.grouped)
-        .navigationTitle("空き時間の書き出し")
-        #if os(iOS)
-        // キーボード外をタップしたらキーボードを閉じる。
-        // ウィンドウへ cancelsTouchesInView = false のタップ認識を載せることで、
-        // ボタンやスクロールなどのタップを妨げずに編集を終了できる。
-        .onAppear { KeyboardDismisser.install() }
-        #endif
-        #if os(macOS)
-        .frame(minWidth: 420, minHeight: 560)
-        #endif
     }
 }
 

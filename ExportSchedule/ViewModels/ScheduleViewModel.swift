@@ -119,8 +119,9 @@ final class ScheduleViewModel {
 
     /// 現在の `daySchedules` から出力テキストを再生成する。
     private func refreshOutputText() {
+        // 幅0（start == end）に縮められた候補区間は出力に含めない。
         let availability = daySchedules.map {
-            DateAvailability(day: $0.day, freeIntervals: $0.freeIntervals)
+            DateAvailability(day: $0.day, freeIntervals: $0.freeIntervals.filter { $0.duration > 0 })
         }
         let text = formatter.format(availability, calendar: displayCalendar)
         outputText = text.isEmpty ? Self.emptyOutputMessage : text
