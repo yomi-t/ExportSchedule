@@ -7,40 +7,40 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		94BF9C812FDBE52500513FE8 /* PBXContainerItemProxy */ = {
+		94F9F1903008BF760070EB20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 94BF9C6B2FDBE52300513FE8 /* Project object */;
+			containerPortal = 94F9F17A3008BF730070EB20 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 94BF9C722FDBE52300513FE8;
+			remoteGlobalIDString = 94F9F1813008BF730070EB20;
 			remoteInfo = ExportSchedule;
 		};
-		94BF9C8B2FDBE52500513FE8 /* PBXContainerItemProxy */ = {
+		94F9F19A3008BF760070EB20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 94BF9C6B2FDBE52300513FE8 /* Project object */;
+			containerPortal = 94F9F17A3008BF730070EB20 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 94BF9C722FDBE52300513FE8;
+			remoteGlobalIDString = 94F9F1813008BF730070EB20;
 			remoteInfo = ExportSchedule;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		94BF9C732FDBE52300513FE8 /* ExportSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExportSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		94BF9C802FDBE52500513FE8 /* ExportScheduleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		94BF9C8A2FDBE52500513FE8 /* ExportScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94F9F1823008BF730070EB20 /* ExportSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExportSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		94BF9C752FDBE52300513FE8 /* ExportSchedule */ = {
+		94F9F1843008BF730070EB20 /* ExportSchedule */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ExportSchedule;
 			sourceTree = "<group>";
 		};
-		94BF9C832FDBE52500513FE8 /* ExportScheduleTests */ = {
+		94F9F1923008BF760070EB20 /* ExportScheduleTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ExportScheduleTests;
 			sourceTree = "<group>";
 		};
-		94BF9C8D2FDBE52500513FE8 /* ExportScheduleUITests */ = {
+		94F9F19C3008BF760070EB20 /* ExportScheduleUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ExportScheduleUITests;
 			sourceTree = "<group>";
@@ -48,40 +48,46 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		94BF9C702FDBE52300513FE8 /* Frameworks */ = {
+		94F9F17F3008BF730070EB20 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94BF9C7D2FDBE52500513FE8 /* Frameworks */ = {
+		94F9F18C3008BF760070EB20 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94BF9C872FDBE52500513FE8 /* Frameworks */ = {
+		94F9F1963008BF760070EB20 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		94BF9C6A2FDBE52300513FE8 = {
+		94F9F1793008BF730070EB20 = {
 			isa = PBXGroup;
 			children = (
-				94BF9C752FDBE52300513FE8 /* ExportSchedule */,
-				94BF9C832FDBE52500513FE8 /* ExportScheduleTests */,
-				94BF9C8D2FDBE52500513FE8 /* ExportScheduleUITests */,
-				94BF9C742FDBE52300513FE8 /* Products */,
+				94F9F1843008BF730070EB20 /* ExportSchedule */,
+				94F9F1923008BF760070EB20 /* ExportScheduleTests */,
+				94F9F19C3008BF760070EB20 /* ExportScheduleUITests */,
+				94F9F1833008BF730070EB20 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		94BF9C742FDBE52300513FE8 /* Products */ = {
+		94F9F1833008BF730070EB20 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				94BF9C732FDBE52300513FE8 /* ExportSchedule.app */,
-				94BF9C802FDBE52500513FE8 /* ExportScheduleTests.xctest */,
-				94BF9C8A2FDBE52500513FE8 /* ExportScheduleUITests.xctest */,
+				94F9F1823008BF730070EB20 /* ExportSchedule.app */,
+				94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */,
+				94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,165 +95,185 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		94BF9C722FDBE52300513FE8 /* ExportSchedule */ = {
+		94F9F1813008BF730070EB20 /* ExportSchedule */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94BF9C922FDBE52500513FE8 /* Build configuration list for PBXNativeTarget "ExportSchedule" */;
+			buildConfigurationList = 94F9F1A33008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportSchedule" */;
 			buildPhases = (
-				94BF9C6F2FDBE52300513FE8 /* Sources */,
-				94BF9C702FDBE52300513FE8 /* Frameworks */,
-				94BF9C712FDBE52300513FE8 /* Resources */,
+				94F9F17E3008BF730070EB20 /* Sources */,
+				94F9F17F3008BF730070EB20 /* Frameworks */,
+				94F9F1803008BF730070EB20 /* Resources */,
 			);
 			buildRules = (
 			);
+			dependencies = (
+			);
 			fileSystemSynchronizedGroups = (
-				94BF9C752FDBE52300513FE8 /* ExportSchedule */,
+				94F9F1843008BF730070EB20 /* ExportSchedule */,
 			);
 			name = ExportSchedule;
+			packageProductDependencies = (
+			);
 			productName = ExportSchedule;
-			productReference = 94BF9C732FDBE52300513FE8 /* ExportSchedule.app */;
+			productReference = 94F9F1823008BF730070EB20 /* ExportSchedule.app */;
 			productType = "com.apple.product-type.application";
 		};
-		94BF9C7F2FDBE52500513FE8 /* ExportScheduleTests */ = {
+		94F9F18E3008BF760070EB20 /* ExportScheduleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94BF9C952FDBE52500513FE8 /* Build configuration list for PBXNativeTarget "ExportScheduleTests" */;
+			buildConfigurationList = 94F9F1A63008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportScheduleTests" */;
 			buildPhases = (
-				94BF9C7C2FDBE52500513FE8 /* Sources */,
-				94BF9C7D2FDBE52500513FE8 /* Frameworks */,
-				94BF9C7E2FDBE52500513FE8 /* Resources */,
+				94F9F18B3008BF760070EB20 /* Sources */,
+				94F9F18C3008BF760070EB20 /* Frameworks */,
+				94F9F18D3008BF760070EB20 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				94BF9C822FDBE52500513FE8 /* PBXTargetDependency */,
+				94F9F1913008BF760070EB20 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				94BF9C832FDBE52500513FE8 /* ExportScheduleTests */,
+				94F9F1923008BF760070EB20 /* ExportScheduleTests */,
 			);
 			name = ExportScheduleTests;
+			packageProductDependencies = (
+			);
 			productName = ExportScheduleTests;
-			productReference = 94BF9C802FDBE52500513FE8 /* ExportScheduleTests.xctest */;
+			productReference = 94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		94BF9C892FDBE52500513FE8 /* ExportScheduleUITests */ = {
+		94F9F1983008BF760070EB20 /* ExportScheduleUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94BF9C982FDBE52500513FE8 /* Build configuration list for PBXNativeTarget "ExportScheduleUITests" */;
+			buildConfigurationList = 94F9F1A93008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportScheduleUITests" */;
 			buildPhases = (
-				94BF9C862FDBE52500513FE8 /* Sources */,
-				94BF9C872FDBE52500513FE8 /* Frameworks */,
-				94BF9C882FDBE52500513FE8 /* Resources */,
+				94F9F1953008BF760070EB20 /* Sources */,
+				94F9F1963008BF760070EB20 /* Frameworks */,
+				94F9F1973008BF760070EB20 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				94BF9C8C2FDBE52500513FE8 /* PBXTargetDependency */,
+				94F9F19B3008BF760070EB20 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				94BF9C8D2FDBE52500513FE8 /* ExportScheduleUITests */,
+				94F9F19C3008BF760070EB20 /* ExportScheduleUITests */,
 			);
 			name = ExportScheduleUITests;
+			packageProductDependencies = (
+			);
 			productName = ExportScheduleUITests;
-			productReference = 94BF9C8A2FDBE52500513FE8 /* ExportScheduleUITests.xctest */;
+			productReference = 94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		94BF9C6B2FDBE52300513FE8 /* Project object */ = {
+		94F9F17A3008BF730070EB20 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2700;
-				LastUpgradeCheck = 2700;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					94BF9C722FDBE52300513FE8 = {
+					94F9F1813008BF730070EB20 = {
 						CreatedOnToolsVersion = 26.6;
 					};
-					94BF9C7F2FDBE52500513FE8 = {
+					94F9F18E3008BF760070EB20 = {
 						CreatedOnToolsVersion = 26.6;
-						TestTargetID = 94BF9C722FDBE52300513FE8;
+						TestTargetID = 94F9F1813008BF730070EB20;
 					};
-					94BF9C892FDBE52500513FE8 = {
+					94F9F1983008BF760070EB20 = {
 						CreatedOnToolsVersion = 26.6;
-						TestTargetID = 94BF9C722FDBE52300513FE8;
+						TestTargetID = 94F9F1813008BF730070EB20;
 					};
 				};
 			};
-			buildConfigurationList = 94BF9C6E2FDBE52300513FE8 /* Build configuration list for PBXProject "ExportSchedule" */;
+			buildConfigurationList = 94F9F17D3008BF730070EB20 /* Build configuration list for PBXProject "ExportSchedule" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 94BF9C6A2FDBE52300513FE8;
-			productRefGroup = 94BF9C742FDBE52300513FE8 /* Products */;
+			mainGroup = 94F9F1793008BF730070EB20;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 94F9F1833008BF730070EB20 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				94BF9C722FDBE52300513FE8 /* ExportSchedule */,
-				94BF9C7F2FDBE52500513FE8 /* ExportScheduleTests */,
-				94BF9C892FDBE52500513FE8 /* ExportScheduleUITests */,
+				94F9F1813008BF730070EB20 /* ExportSchedule */,
+				94F9F18E3008BF760070EB20 /* ExportScheduleTests */,
+				94F9F1983008BF760070EB20 /* ExportScheduleUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		94BF9C712FDBE52300513FE8 /* Resources */ = {
+		94F9F1803008BF730070EB20 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94BF9C7E2FDBE52500513FE8 /* Resources */ = {
+		94F9F18D3008BF760070EB20 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94BF9C882FDBE52500513FE8 /* Resources */ = {
+		94F9F1973008BF760070EB20 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		94BF9C6F2FDBE52300513FE8 /* Sources */ = {
+		94F9F17E3008BF730070EB20 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94BF9C7C2FDBE52500513FE8 /* Sources */ = {
+		94F9F18B3008BF760070EB20 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94BF9C862FDBE52500513FE8 /* Sources */ = {
+		94F9F1953008BF760070EB20 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		94BF9C822FDBE52500513FE8 /* PBXTargetDependency */ = {
+		94F9F1913008BF760070EB20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 94BF9C722FDBE52300513FE8 /* ExportSchedule */;
-			targetProxy = 94BF9C812FDBE52500513FE8 /* PBXContainerItemProxy */;
+			target = 94F9F1813008BF730070EB20 /* ExportSchedule */;
+			targetProxy = 94F9F1903008BF760070EB20 /* PBXContainerItemProxy */;
 		};
-		94BF9C8C2FDBE52500513FE8 /* PBXTargetDependency */ = {
+		94F9F19B3008BF760070EB20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 94BF9C722FDBE52300513FE8 /* ExportSchedule */;
-			targetProxy = 94BF9C8B2FDBE52500513FE8 /* PBXContainerItemProxy */;
+			target = 94F9F1813008BF730070EB20 /* ExportSchedule */;
+			targetProxy = 94F9F19A3008BF760070EB20 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		94BF9C902FDBE52500513FE8 /* Debug configuration for PBXProject "ExportSchedule" */ = {
+		94F9F1A13008BF760070EB20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -296,23 +322,22 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
-		94BF9C912FDBE52500513FE8 /* Release configuration for PBXProject "ExportSchedule" */ = {
+		94F9F1A23008BF760070EB20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -355,131 +380,87 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 6.0;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		94BF9C932FDBE52500513FE8 /* Debug configuration for PBXNativeTarget "ExportSchedule" */ = {
+		94F9F1A43008BF760070EB20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
-				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
-				ENABLE_RESOURCE_ACCESS_CALENDARS = YES;
-				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
-				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
-				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
-				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
-				ENABLE_RESOURCE_ACCESS_USB = NO;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Schedule Expoter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Schedule Exporter";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "空き時間を計算するためにカレンダーの予定を読み取ります。";
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 26.4;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		94BF9C942FDBE52500513FE8 /* Release configuration for PBXNativeTarget "ExportSchedule" */ = {
+		94F9F1A53008BF760070EB20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
-				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
-				ENABLE_RESOURCE_ACCESS_CALENDARS = YES;
-				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
-				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
-				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
-				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
-				ENABLE_RESOURCE_ACCESS_USB = NO;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Schedule Expoter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Schedule Exporter";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "空き時間を計算するためにカレンダーの予定を読み取ります。";
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 26.4;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		94BF9C962FDBE52500513FE8 /* Debug configuration for PBXNativeTarget "ExportScheduleTests" */ = {
+		94F9F1A73008BF760070EB20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -487,25 +468,21 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
-				MACOSX_DEPLOYMENT_TARGET = 26.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportScheduleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ExportSchedule.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ExportSchedule";
-				XROS_DEPLOYMENT_TARGET = 26.6;
 			};
 			name = Debug;
 		};
-		94BF9C972FDBE52500513FE8 /* Release configuration for PBXNativeTarget "ExportScheduleTests" */ = {
+		94F9F1A83008BF760070EB20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -513,111 +490,100 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
-				MACOSX_DEPLOYMENT_TARGET = 26.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportScheduleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ExportSchedule.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ExportSchedule";
-				XROS_DEPLOYMENT_TARGET = 26.6;
 			};
 			name = Release;
 		};
-		94BF9C992FDBE52500513FE8 /* Debug configuration for PBXNativeTarget "ExportScheduleUITests" */ = {
+		94F9F1AA3008BF760070EB20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
-				MACOSX_DEPLOYMENT_TARGET = 26.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportScheduleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = ExportSchedule;
-				XROS_DEPLOYMENT_TARGET = 26.6;
 			};
 			name = Debug;
 		};
-		94BF9C9A2FDBE52500513FE8 /* Release configuration for PBXNativeTarget "ExportScheduleUITests" */ = {
+		94F9F1AB3008BF760070EB20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
-				MACOSX_DEPLOYMENT_TARGET = 26.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportScheduleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = ExportSchedule;
-				XROS_DEPLOYMENT_TARGET = 26.6;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		94BF9C6E2FDBE52300513FE8 /* Build configuration list for PBXProject "ExportSchedule" */ = {
+		94F9F17D3008BF730070EB20 /* Build configuration list for PBXProject "ExportSchedule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				94BF9C902FDBE52500513FE8 /* Debug configuration for PBXProject "ExportSchedule" */,
-				94BF9C912FDBE52500513FE8 /* Release configuration for PBXProject "ExportSchedule" */,
+				94F9F1A13008BF760070EB20 /* Debug */,
+				94F9F1A23008BF760070EB20 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94BF9C922FDBE52500513FE8 /* Build configuration list for PBXNativeTarget "ExportSchedule" */ = {
+		94F9F1A33008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportSchedule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				94BF9C932FDBE52500513FE8 /* Debug configuration for PBXNativeTarget "ExportSchedule" */,
-				94BF9C942FDBE52500513FE8 /* Release configuration for PBXNativeTarget "ExportSchedule" */,
+				94F9F1A43008BF760070EB20 /* Debug */,
+				94F9F1A53008BF760070EB20 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94BF9C952FDBE52500513FE8 /* Build configuration list for PBXNativeTarget "ExportScheduleTests" */ = {
+		94F9F1A63008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportScheduleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				94BF9C962FDBE52500513FE8 /* Debug configuration for PBXNativeTarget "ExportScheduleTests" */,
-				94BF9C972FDBE52500513FE8 /* Release configuration for PBXNativeTarget "ExportScheduleTests" */,
+				94F9F1A73008BF760070EB20 /* Debug */,
+				94F9F1A83008BF760070EB20 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94BF9C982FDBE52500513FE8 /* Build configuration list for PBXNativeTarget "ExportScheduleUITests" */ = {
+		94F9F1A93008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportScheduleUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				94BF9C992FDBE52500513FE8 /* Debug configuration for PBXNativeTarget "ExportScheduleUITests" */,
-				94BF9C9A2FDBE52500513FE8 /* Release configuration for PBXNativeTarget "ExportScheduleUITests" */,
+				94F9F1AA3008BF760070EB20 /* Debug */,
+				94F9F1AB3008BF760070EB20 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 94BF9C6B2FDBE52300513FE8 /* Project object */;
-	validationLevel = 1;
+	rootObject = 94F9F17A3008BF730070EB20 /* Project object */;
 }

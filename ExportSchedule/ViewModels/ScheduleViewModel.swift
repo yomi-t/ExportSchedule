@@ -72,7 +72,7 @@ final class ScheduleViewModel {
                 }
             }
             guard authorizationState == .fullAccess else {
-                errorMessage = "カレンダーへのアクセスが必要です。設定アプリから許可してください。"
+                errorMessage = "カレンダーへのアクセスが必要です。設定アプリからフルアクセスを許可してください。"
                 return
             }
 

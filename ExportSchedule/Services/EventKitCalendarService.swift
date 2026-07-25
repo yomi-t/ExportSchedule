@@ -10,7 +10,7 @@ import Foundation
 import EventKit
 
 /// 端末のローカルカレンダー（Google アカウント同期分を含む）から予定を読み取るサービス。
-final class EventKitCalendarService: CalendarEventProviding, @unchecked Sendable {
+final class EventKitCalendarService: CalendarEventProviding, Sendable {
 
     /// EKEventStore は生成コストが高いため単一インスタンスを保持する。
     private let store = EKEventStore()
