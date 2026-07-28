@@ -89,4 +89,40 @@ struct ScheduleTextFormatterTests {
                                              )]
         #expect(formatter.format(availability, calendar: calendar).isEmpty)
     }
+
+    @Test func kanjiDateStyleIsFormatted() {
+        let format = TextOutputFormat(dateStyle: .kanji, timeStyle: .colon, zeroPadded: false)
+        let availability = [DateAvailability(day: TestSupport.date(2026, 6, 15),
+                                             freeIntervals: [range((2026, 6, 15), (10, 0), (12, 0))]
+                                            )]
+        let text = formatter.format(availability, calendar: calendar, outputFormat: format)
+        #expect(text == "6月15日(月) 10:00〜12:00")
+    }
+
+    @Test func kanjiTimeStyleIsFormatted() {
+        let format = TextOutputFormat(dateStyle: .slash, timeStyle: .kanji, zeroPadded: false)
+        let availability = [DateAvailability(day: TestSupport.date(2026, 6, 15),
+                                             freeIntervals: [range((2026, 6, 15), (10, 0), (12, 0))]
+                                            )]
+        let text = formatter.format(availability, calendar: calendar, outputFormat: format)
+        #expect(text == "6/15(月) 10時00分〜12時00分")
+    }
+
+    @Test func zeroPaddedFormatsMonthDayAndHour() {
+        let format = TextOutputFormat(dateStyle: .slash, timeStyle: .colon, zeroPadded: true)
+        let availability = [DateAvailability(day: TestSupport.date(2026, 6, 9),
+                                             freeIntervals: [range((2026, 6, 9), (9, 5), (10, 0))]
+                                            )]
+        let text = formatter.format(availability, calendar: calendar, outputFormat: format)
+        #expect(text == "06/09(火) 09:05〜10:00")
+    }
+
+    @Test func kanjiStyleWithZeroPadded() {
+        let format = TextOutputFormat(dateStyle: .kanji, timeStyle: .kanji, zeroPadded: true)
+        let availability = [DateAvailability(day: TestSupport.date(2026, 6, 9),
+                                             freeIntervals: [range((2026, 6, 9), (9, 5), (10, 0))]
+                                            )]
+        let text = formatter.format(availability, calendar: calendar, outputFormat: format)
+        #expect(text == "06月09日(火) 09時05分〜10時00分")
+    }
 }

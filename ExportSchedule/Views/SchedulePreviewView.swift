@@ -19,7 +19,8 @@ struct SchedulePreviewView: View {
             AppSection("候補日プレビュー") {
                 ForEach(viewModel.daySchedules) { schedule in
                     DayScheduleRow(schedule: schedule,
-                                   calendar: viewModel.displayCalendar) { index, newRange in
+                                   calendar: viewModel.displayCalendar,
+                                   outputFormat: viewModel.outputFormat) { index, newRange in
                         viewModel.updateFreeInterval(dayID: schedule.id, at: index, to: newRange)
                     }
                     .padding(.vertical, 4)
@@ -67,10 +68,9 @@ private struct ColorLegend: View {
 private struct DayScheduleRow: View {
     let schedule: DaySchedule
     let calendar: Calendar
+    let outputFormat: TextOutputFormat
     /// 候補区間の編集を親（ViewModel）へ伝えるコールバック（index, 編集後の区間）。
     let onUpdate: (Int, DateRange) -> Void
-
-    private static let weekdaySymbols = ["日", "月", "火", "水", "木", "金", "土"]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -82,18 +82,14 @@ private struct DayScheduleRow: View {
             }
 
             // タイムバー（時間帯枠の上に候補と予定を重ね、時間目盛りを添える）
-            DayTimelineBar(schedule: schedule, calendar: calendar, onUpdate: onUpdate)
+            DayTimelineBar(schedule: schedule, calendar: calendar, outputFormat: outputFormat, onUpdate: onUpdate)
         }
     }
 
     // MARK: テキスト整形
 
     private var dateLabel: String {
-        let month = calendar.component(.month, from: schedule.day)
-        let day = calendar.component(.day, from: schedule.day)
-        let weekday = calendar.component(.weekday, from: schedule.day)
-        let symbol = Self.weekdaySymbols[(weekday - 1) % 7]
-        return "\(month)/\(day)(\(symbol))"
+        ScheduleTextFormatter().dateText(for: schedule.day, calendar: calendar, outputFormat: outputFormat)
     }
 }
 
@@ -103,6 +99,7 @@ private struct DayScheduleRow: View {
 private struct DayTimelineBar: View {
     let schedule: DaySchedule
     let calendar: Calendar
+    let outputFormat: TextOutputFormat
     let onUpdate: (Int, DateRange) -> Void
 
     private let barHeight: CGFloat = 24
@@ -123,6 +120,7 @@ private struct DayTimelineBar: View {
                         if let metrics = metrics(for: event.range, width: width) {
                             EventSegment(event: event,
                                          calendar: calendar,
+                                         outputFormat: outputFormat,
                                          width: metrics.length,
                                          offset: metrics.offset,
                                          height: barHeight)
@@ -148,6 +146,7 @@ private struct DayTimelineBar: View {
                                     trackWidth: width,
                                     height: barHeight,
                                     calendar: calendar,
+                                    outputFormat: outputFormat,
                                     onCommit: onUpdate)
                     }
                 }
@@ -241,6 +240,7 @@ private struct FreeSegment: View {
     let trackWidth: CGFloat
     let height: CGFloat
     let calendar: Calendar
+    let outputFormat: TextOutputFormat
     let onCommit: (Int, DateRange) -> Void
 
     /// 調整できる最小単位（5分）。
@@ -462,9 +462,7 @@ private struct FreeSegment: View {
     }
 
     private func timeText(_ date: Date) -> String {
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-        return String(format: "%d:%02d", hour, minute)
+        ScheduleTextFormatter().timeText(for: date, calendar: calendar, outputFormat: outputFormat)
     }
 }
 
@@ -473,6 +471,7 @@ private struct FreeSegment: View {
 private struct EventSegment: View {
     let event: BusyInterval
     let calendar: Calendar
+    let outputFormat: TextOutputFormat
     let width: CGFloat
     let offset: CGFloat
     let height: CGFloat
@@ -513,8 +512,6 @@ private struct EventSegment: View {
     }
 
     private func timeText(_ date: Date) -> String {
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-        return String(format: "%d:%02d", hour, minute)
+        ScheduleTextFormatter().timeText(for: date, calendar: calendar, outputFormat: outputFormat)
     }
 }

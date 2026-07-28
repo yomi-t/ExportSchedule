@@ -17,8 +17,20 @@ final class ScheduleViewModel {
     /// ユーザー設定。View からバインドして編集する。
     var settings: FreeSlotSettings
 
+    /// 出力テキストの表記形式。
+    var outputFormat: TextOutputFormat = TextOutputFormat() {
+        didSet {
+            if hasGeneratedOnce {
+                refreshOutputText()
+            }
+        }
+    }
+
     /// コピー用に整形された出力テキスト。
     private(set) var outputText: String = ""
+
+    /// 一度でも `generate()` に成功したかどうか。
+    private var hasGeneratedOnce = false
 
     /// 候補日プレビュー用の日別スケジュール（候補枠・候補区間・既存予定）。
     private(set) var daySchedules: [DaySchedule] = []
@@ -90,6 +102,7 @@ final class ScheduleViewModel {
 
             daySchedules = schedules
             displayCalendar = calendar
+            hasGeneratedOnce = true
             refreshOutputText()
         } catch {
             errorMessage = "予定の取得に失敗しました: \(error.localizedDescription)"
@@ -123,7 +136,7 @@ final class ScheduleViewModel {
         let availability = daySchedules.map {
             DateAvailability(day: $0.day, freeIntervals: $0.freeIntervals.filter { $0.duration > 0 })
         }
-        let text = formatter.format(availability, calendar: displayCalendar)
+        let text = formatter.format(availability, calendar: displayCalendar, outputFormat: outputFormat)
         outputText = text.isEmpty ? Self.emptyOutputMessage : text
     }
 }

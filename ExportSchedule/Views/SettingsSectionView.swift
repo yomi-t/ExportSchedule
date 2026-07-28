@@ -47,6 +47,37 @@ struct SettingsSectionView: View {
             Text("各予定の前後にこの時間を確保し、予定の直後・直前に空きが入らないようにします。")
         }
         
+        AppSection("出力形式") {
+            HStack {
+                Text("日付")
+                Spacer()
+                Picker("日付", selection: $viewModel.outputFormat.dateStyle) {
+                    ForEach(DateOutputStyle.allCases, id: \.self) { style in
+                        Text(style.label).tag(style)
+                    }
+                }
+                .pickerStyle(.automatic)
+                .tint(.primary)
+                .backgroundStyle(.gray)
+                .clipShape(.capsule)
+            }
+            HStack {
+                Text("時刻")
+                Spacer()
+                Picker("時刻", selection: $viewModel.outputFormat.timeStyle) {
+                    ForEach(TimeOutputStyle.allCases, id: \.self) { style in
+                        Text(style.label).tag(style)
+                    }
+                }
+                .pickerStyle(.menu)
+                .tint(.primary)
+            }
+            
+            Toggle("0埋めする（月・日・時）", isOn: $viewModel.outputFormat.zeroPadded)
+        } footer: {
+            Text("例: \(previewSample)")
+        }
+        
         
     }
     
@@ -62,6 +93,18 @@ struct SettingsSectionView: View {
         if hours > 0 { parts += "\(hours) 時間" }
         if mins > 0 { parts += "\(mins) 分" }
         return parts
+    }
+    
+    /// 出力形式のプレビュー（固定のサンプル日時：7月6日9時5分〜18時0分）。
+    private var previewSample: String {
+        let formatter = ScheduleTextFormatter()
+        let calendar = viewModel.settings.calendar
+        let sampleDate = calendar.date(bySettingHour: 9, minute: 5, second: 0, of: calendar.date(bySettingHour: 0, minute: 0, second: 0, of: calendar.date(from: DateComponents(year: 2024, month: 7, day: 6)) ?? Date()) ?? Date()) ?? Date()
+        let sampleEndDate = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: calendar.date(bySettingHour: 0, minute: 0, second: 0, of: calendar.date(from: DateComponents(year: 2024, month: 7, day: 6)) ?? Date()) ?? Date()) ?? Date()
+        let dateStr = formatter.dateText(for: sampleDate, calendar: calendar, outputFormat: viewModel.outputFormat)
+        let timeStartStr = formatter.timeText(for: sampleDate, calendar: calendar, outputFormat: viewModel.outputFormat)
+        let timeEndStr = formatter.timeText(for: sampleEndDate, calendar: calendar, outputFormat: viewModel.outputFormat)
+        return "\(dateStr) \(timeStartStr)〜\(timeEndStr)"
     }
     
     // MARK: - 曜日トグル
