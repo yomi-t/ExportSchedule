@@ -18,11 +18,23 @@ struct ContentView: View {
     @State private var scrollOffsetY: CGFloat = 0
 
     var body: some View {
+        TabView {
+            Tab("content.tab.main", systemImage: "calendar") {
+                mainContent
+            }
+            Tab("content.tab.settings", systemImage: "gearshape") {
+                CalendarSourceSettingsView(viewModel: viewModel)
+            }
+        }
+    }
+
+    /// 「メイン」タブの表示内容（設定・生成・プレビュー・出力）。
+    private var mainContent: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
                     SettingsSectionView(viewModel: viewModel)
-                    
+
                     //            Section {
                     Button {
                         Task {
@@ -51,9 +63,9 @@ struct ContentView: View {
                     Text("content.calendarSyncNotice")
                         .foregroundStyle(.secondary)
                         .font(.footnote)
-                    
+
                     SchedulePreviewView(viewModel: viewModel)
-                    
+
                     OutputSectionView(viewModel: viewModel)
                 }
                 .padding(.vertical, 30)

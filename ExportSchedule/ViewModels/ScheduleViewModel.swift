@@ -41,6 +41,14 @@ final class ScheduleViewModel {
     /// 現在のカレンダー認可状態。
     private(set) var authorizationState: CalendarAuthorizationStatus
 
+    /// 予定の取得元（Apple カレンダー / Google カレンダー）。
+    var calendarSource: CalendarSource = .apple {
+        didSet {
+            guard calendarSource != oldValue else { return }
+            authorizationState = activeService.authorizationStatus()
+        }
+    }
+
     /// 計算・取得中フラグ。
     private(set) var isLoading: Bool = false
 
@@ -52,17 +60,28 @@ final class ScheduleViewModel {
 
     // MARK: - 依存
 
-    private let service: any CalendarEventProviding
+    private let eventKitService: any CalendarEventProviding
+    private let googleService: any CalendarEventProviding
     private let calculator = FreeSlotCalculator()
     private let formatter = ScheduleTextFormatter()
 
+    /// `calendarSource` に応じて実際に使用するサービス。
+    private var activeService: any CalendarEventProviding {
+        switch calendarSource {
+        case .apple: eventKitService
+        case .google: googleService
+        }
+    }
+
     // MARK: - 初期化
 
-    init(service: any CalendarEventProviding = EventKitCalendarService(),
+    init(eventKitService: any CalendarEventProviding = EventKitCalendarService(),
+         googleService: any CalendarEventProviding = GoogleCalendarService(),
          referenceDate: Date = Date()) {
-        self.service = service
+        self.eventKitService = eventKitService
+        self.googleService = googleService
         self.settings = FreeSlotSettings.makeDefault(referenceDate: referenceDate)
-        self.authorizationState = service.authorizationStatus()
+        self.authorizationState = eventKitService.authorizationStatus()
     }
 
     // MARK: - アクション
@@ -76,15 +95,17 @@ final class ScheduleViewModel {
         do {
             // 1. 認可確認・要求。
             if authorizationState == .notDetermined {
-                let granted = try await service.requestAccess()
-                authorizationState = service.authorizationStatus()
+                let granted = try await activeService.requestAccess()
+                authorizationState = activeService.authorizationStatus()
                 if !granted {
                     errorMessage = String(localized: "error.accessDenied")
                     return
                 }
             }
             guard authorizationState == .fullAccess else {
-                errorMessage = String(localized: "error.accessRequired")
+                errorMessage = calendarSource == .google
+                    ? String(localized: "error.accessRequired.google")
+                    : String(localized: "error.accessRequired")
                 return
             }
 
@@ -93,7 +114,7 @@ final class ScheduleViewModel {
             let fetchStart = calendar.startOfDay(for: settings.rangeStart)
             let endDay = calendar.startOfDay(for: settings.rangeEnd)
             let fetchEnd = calendar.date(byAdding: .day, value: 1, to: endDay) ?? settings.rangeEnd
-            let busy = try await service.busyIntervals(from: fetchStart, to: fetchEnd)
+            let busy = try await activeService.busyIntervals(from: fetchStart, to: fetchEnd)
 
             // 3. 日別スケジュールを計算 → 空き状況を導出 → 整形。
             let schedules = calculator.computeDaySchedules(busyIntervals: busy,

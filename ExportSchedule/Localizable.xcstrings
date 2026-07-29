@@ -35,6 +35,40 @@
         }
       }
     },
+    "content.tab.main" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Main"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メイン"
+          }
+        }
+      }
+    },
+    "content.tab.settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
+    },
     "error.accessDenied" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -69,6 +103,23 @@
         }
       }
     },
+    "error.accessRequired.google" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google Calendar access is required. Please sign in with your Google account."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google カレンダーへのアクセスが必要です。Google アカウントでサインインしてください。"
+          }
+        }
+      }
+    },
     "error.fetchFailed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -82,6 +133,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "予定の取得に失敗しました: %@"
+          }
+        }
+      }
+    },
+    "error.google.notSignedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not signed in with a Google account."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google アカウントでサインインされていません。"
+          }
+        }
+      }
+    },
+    "error.google.presentationFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not display the Google sign-in screen."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google サインイン画面を表示できませんでした。"
+          }
+        }
+      }
+    },
+    "error.google.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The request to Google Calendar failed."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google カレンダーへのリクエストに失敗しました。"
+          }
+        }
+      }
+    },
+    "error.google.signInCancelled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google sign-in was cancelled."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google サインインがキャンセルされました。"
           }
         }
       }
@@ -388,6 +507,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "予定の前後の空け時間"
+          }
+        }
+      }
+    },
+    "settings.calendarSource.apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Calendar"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple カレンダー"
+          }
+        }
+      }
+    },
+    "settings.calendarSource.google" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google Calendar"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google カレンダー"
+          }
+        }
+      }
+    },
+    "settings.calendarSource.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar Source"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カレンダーの取得元"
           }
         }
       }
