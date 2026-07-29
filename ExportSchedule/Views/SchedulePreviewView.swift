@@ -489,6 +489,9 @@ private struct EventSegment: View {
                 detail
                     .presentationCompactAdaptation(.popover)
             }
+            .sensoryFeedback(trigger: isShowingDetail) { _, isShowing in
+                isShowing ? .impact : nil
+            }
             .offset(x: offset)
     }
 

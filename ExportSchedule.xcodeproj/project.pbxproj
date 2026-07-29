@@ -200,6 +200,8 @@
 			);
 			mainGroup = 94F9F1793008BF730070EB20;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 94F9F1833008BF730070EB20 /* Products */;
 			projectDirPath = "";
@@ -405,7 +407,7 @@
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Schedule Exporter";
+				INFOPLIST_KEY_CFBundleDisplayName = "SE Debug";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "空き時間を計算するためにカレンダーの予定を読み取ります。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -419,7 +421,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportSchedule;
+				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportSchedule.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;

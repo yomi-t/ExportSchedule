@@ -42,4 +42,13 @@ struct WeeklyWorkingHours: Codable, Sendable, Hashable {
         }
         return WeeklyWorkingHours(hoursByWeekday: map)
     }
+
+    /// 曜日を問わず全ての日に共通の時間帯を適用する設定。
+    static func everyDay(_ hours: WorkingHours) -> WeeklyWorkingHours {
+        var map: [Int: WorkingHours] = [:]
+        for weekday in 1...7 {
+            map[weekday] = hours
+        }
+        return WeeklyWorkingHours(hoursByWeekday: map)
+    }
 }

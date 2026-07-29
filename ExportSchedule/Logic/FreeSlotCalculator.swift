@@ -113,8 +113,8 @@ struct FreeSlotCalculator {
         return DateRange(start: start, end: end)
     }
 
-    /// 終日予定が覆う日（startOfDay）の一覧を返す。
-    private func daysCovered(by interval: BusyInterval, calendar: Calendar) -> [Date] {
+    /// 指定した予定が覆う日（startOfDay）の一覧を返す（終日予定・時間指定予定のどちらにも使える）。
+    func daysCovered(by interval: BusyInterval, calendar: Calendar) -> [Date] {
         let firstDay = calendar.startOfDay(for: interval.start)
         // 終日予定は end が排他的（翌日0:00）であることが多いので、end ちょうどの日は含めない。
         let lastInstant = interval.end > interval.start ? interval.end.addingTimeInterval(-1) : interval.start
