@@ -48,7 +48,7 @@ final class ScheduleViewModel {
     private(set) var errorMessage: String?
 
     /// 空き時間が一つもないときに表示する文言。
-    private static let emptyOutputMessage = "指定期間に空き時間が見つかりませんでした。"
+    private static var emptyOutputMessage: String { String(localized: "output.emptyMessage") }
 
     // MARK: - 依存
 
@@ -79,12 +79,12 @@ final class ScheduleViewModel {
                 let granted = try await service.requestAccess()
                 authorizationState = service.authorizationStatus()
                 if !granted {
-                    errorMessage = "カレンダーへのアクセスが許可されませんでした。"
+                    errorMessage = String(localized: "error.accessDenied")
                     return
                 }
             }
             guard authorizationState == .fullAccess else {
-                errorMessage = "カレンダーへのアクセスが必要です。設定アプリからフルアクセスを許可してください。"
+                errorMessage = String(localized: "error.accessRequired")
                 return
             }
 
@@ -105,7 +105,7 @@ final class ScheduleViewModel {
             hasGeneratedOnce = true
             refreshOutputText()
         } catch {
-            errorMessage = "予定の取得に失敗しました: \(error.localizedDescription)"
+            errorMessage = String(format: String(localized: "error.fetchFailed"), error.localizedDescription)
         }
     }
 

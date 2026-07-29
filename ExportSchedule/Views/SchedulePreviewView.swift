@@ -16,7 +16,7 @@ struct SchedulePreviewView: View {
 
     var body: some View {
         if !viewModel.daySchedules.isEmpty {
-            AppSection("候補日プレビュー") {
+            AppSection("preview.title") {
                 ForEach(viewModel.daySchedules) { schedule in
                     DayScheduleRow(schedule: schedule,
                                    calendar: viewModel.displayCalendar,
@@ -39,20 +39,20 @@ private struct ColorLegend: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 16) {
-                legendItem(color: .appGreen, label: "候補（空き）")
-                legendItem(color: .red, label: "既存の予定")
+                legendItem(color: .appGreen, label: "preview.legend.candidate")
+                legendItem(color: .red, label: "preview.legend.existingEvent")
                 Spacer()
             }
-            Text("緑のバーの端をドラッグすると、候補の時間を5分単位で調整できます。")
+            Text("preview.hint.drag")
                 .foregroundStyle(.secondary)
-            Text("予定のバーをタップすると、タイトルと時間を表示します。")
+            Text("preview.hint.tap")
                 .foregroundStyle(.secondary)
         }
         .font(.caption)
         .padding(.top, 4)
     }
 
-    private func legendItem(color: Color, label: String) -> some View {
+    private func legendItem(color: Color, label: LocalizedStringKey) -> some View {
         HStack(spacing: 4) {
             RoundedRectangle(cornerRadius: 2)
                 .fill(color.opacity(0.75))
@@ -157,7 +157,7 @@ private struct DayTimelineBar: View {
                 // 目盛りラベル（毎正時の「時」）
                 ZStack(alignment: .topLeading) {
                     ForEach(Array(hourTicks.enumerated()), id: \.offset) { _, tick in
-                        Text("\(calendar.component(.hour, from: tick))")
+                        Text(verbatim: "\(calendar.component(.hour, from: tick))")
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                             .fixedSize()
@@ -494,7 +494,7 @@ private struct EventSegment: View {
 
     private var detail: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(event.title.isEmpty ? "（無題）" : event.title)
+            Text(event.title.isEmpty ? String(localized: "event.untitled") : event.title)
                 .font(.headline)
             Label(timeRangeText, systemImage: "clock")
                 .font(.subheadline)
@@ -506,7 +506,7 @@ private struct EventSegment: View {
 
     private var timeRangeText: String {
         if event.isAllDay {
-            return "終日"
+            return String(localized: "event.allDay")
         }
         return "\(timeText(event.start))〜\(timeText(event.end))"
     }

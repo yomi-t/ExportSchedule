@@ -24,6 +24,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		94E24E46301908DC0043109B /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
+		94E24E47301908DC0043109B /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		94F9F1823008BF730070EB20 /* ExportSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExportSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,8 @@
 				94F9F1843008BF730070EB20 /* ExportSchedule */,
 				94F9F1923008BF760070EB20 /* ExportScheduleTests */,
 				94F9F19C3008BF760070EB20 /* ExportScheduleUITests */,
+				94E24E46301908DC0043109B /* AGENTS.md */,
+				94E24E47301908DC0043109B /* CLAUDE.md */,
 				94F9F1833008BF730070EB20 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -187,10 +191,11 @@
 				};
 			};
 			buildConfigurationList = 94F9F17D3008BF730070EB20 /* Build configuration list for PBXProject "ExportSchedule" */;
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 				Base,
 			);
 			mainGroup = 94F9F1793008BF730070EB20;

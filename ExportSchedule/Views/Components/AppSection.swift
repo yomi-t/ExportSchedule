@@ -78,21 +78,21 @@ extension AppSection where Header == EmptyView, Footer == EmptyView {
 
 extension AppSection where Header == Text {
     init(
-        _ title: String,
+        _ title: LocalizedStringKey,
         @ViewBuilder content: () -> Content,
         @ViewBuilder footer: () -> Footer
     ) {
-        // StringをTextビューに変換してheaderに代入
+        // LocalizedStringKeyをTextビューに変換してheaderに代入
         self.content = content()
         self.header = Text(title)
         self.footer = footer()
     }
 }
 
-// パターンB: ヘッダーはString、フッターはなし（EmptyView）
+// パターンB: ヘッダーはLocalizedStringKey、フッターはなし（EmptyView）
 extension AppSection where Header == Text, Footer == EmptyView {
     init(
-        _ title: String,
+        _ title: LocalizedStringKey,
         @ViewBuilder content: () -> Content
     ) {
         self.content = content()

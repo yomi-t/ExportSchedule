@@ -39,7 +39,7 @@ struct ContentView: View {
                             ProgressView()
                                 .frame(maxWidth: .infinity)
                         } else {
-                            Text("空き時間を出力")
+                            Text("action.exportFreeTime")
                                 .padding()
                                 .bold()
                                 .frame(maxWidth: .infinity)
@@ -48,7 +48,7 @@ struct ContentView: View {
                         }
                     }
                     .disabled(viewModel.isLoading)
-                    Text("カレンダーの変更の反映には時間がかかることがあります。生成前にカレンダーアプリを開いておくと、最新の予定が反映されやすくなります。")
+                    Text("content.calendarSyncNotice")
                         .foregroundStyle(.secondary)
                         .font(.footnote)
                     
@@ -77,7 +77,7 @@ struct ContentView: View {
             } action: { _, newValue in
                 scrollOffsetY = newValue
             }
-            .navigationTitle("空き時間を出力")
+            .navigationTitle("action.exportFreeTime")
         }
     }
 }

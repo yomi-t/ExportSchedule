@@ -14,7 +14,7 @@ struct OutputSectionView: View {
     @State private var editableText = ""
 
     var body: some View {
-        AppSection("出力") {
+        AppSection("output.title") {
             if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
@@ -22,7 +22,7 @@ struct OutputSectionView: View {
             }
 
             if viewModel.outputText.isEmpty {
-                Text("「空き時間を出力」を押すと、ここに結果が表示されます。")
+                Text("output.placeholder")
                     .foregroundStyle(.secondary)
                     .font(.callout)
             } else {
@@ -39,7 +39,7 @@ struct OutputSectionView: View {
                         Clipboard.copy(editableText)
                         didCopy = true
                     } label: {
-                        Label(didCopy ? "コピーしました" : "コピー",
+                        Label(didCopy ? "output.copied" : "output.copy",
                               systemImage: didCopy ? "checkmark" : "doc.on.doc")
                         .bold()
                         .padding()

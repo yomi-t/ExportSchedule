@@ -11,48 +11,75 @@ struct SettingsSectionView: View {
     @Bindable var viewModel: ScheduleViewModel
     
     /// 曜日表示用（weekday 1...7 = 日〜土）。
-    private let weekdayLabels = ["日", "月", "火", "水", "木", "金", "土"]
-    
+    private var weekdayLabels: [String] {
+        [
+            String(localized: "weekday.sunday"),
+            String(localized: "weekday.monday"),
+            String(localized: "weekday.tuesday"),
+            String(localized: "weekday.wednesday"),
+            String(localized: "weekday.thursday"),
+            String(localized: "weekday.friday"),
+            String(localized: "weekday.saturday"),
+        ]
+    }
+
+    /// アプリの表示言語が日本語かどうか（日付・時刻の「漢字スタイル」を選択肢に含めるかの判定に使う）。
+    private var isJapaneseLocale: Bool {
+        Bundle.main.preferredLocalizations.first == "ja"
+    }
+
+    /// 日本語ロケールのときだけ「漢字スタイル」を選択肢に含める。
+    private var availableDateStyles: [DateOutputStyle] {
+        isJapaneseLocale ? DateOutputStyle.allCases : DateOutputStyle.allCases.filter { $0 != .kanji }
+    }
+
+    /// 日本語ロケールのときだけ「漢字スタイル」を選択肢に含める。
+    private var availableTimeStyles: [TimeOutputStyle] {
+        isJapaneseLocale ? TimeOutputStyle.allCases : TimeOutputStyle.allCases.filter { $0 != .kanji }
+    }
+
     var body: some View {
-        AppSection("期間") {
-            DatePicker("開始", selection: $viewModel.settings.rangeStart, displayedComponents: .date)
+        AppSection("settings.dateRange.title") {
+            // ラベルはあらかじめ現在の表示言語で解決した String を渡す（DatePickerのString版initはLocalizedStringKeyとして
+            // 再解決されないため、直後の .environment(\.locale:) が日付書式にのみ作用しラベルには影響しない）。
+            DatePicker(String(localized: "settings.dateRange.start"), selection: $viewModel.settings.rangeStart, displayedComponents: .date)
                 .environment(\.locale, Locale(identifier: "ja_JP"))
-            DatePicker("終了", selection: $viewModel.settings.rangeEnd, displayedComponents: .date)
+            DatePicker(String(localized: "settings.dateRange.end"), selection: $viewModel.settings.rangeEnd, displayedComponents: .date)
                 .environment(\.locale, Locale(identifier: "ja_JP"))
         }
-        AppSection("曜日") {
+        AppSection("settings.weekdays.title") {
             HStack {
                 ForEach(1...7, id: \.self) { weekday in
                     weekdayToggle(weekday)
                 }
             }
         }
-        
-        AppSection("時間帯") {
-            DatePicker("開始", selection: workingStartBinding, displayedComponents: .hourAndMinute)
-            DatePicker("終了", selection: workingEndBinding, displayedComponents: .hourAndMinute)
+
+        AppSection("settings.timeRange.title") {
+            DatePicker("settings.timeRange.start", selection: workingStartBinding, displayedComponents: .hourAndMinute)
+            DatePicker("settings.timeRange.end", selection: workingEndBinding, displayedComponents: .hourAndMinute)
         }
-        
-        AppSection("最小予定時間") {
+
+        AppSection("settings.minimumSlot.title") {
             Stepper(value: $viewModel.settings.minimumSlotMinutes, in: 5...480, step: 5) {
-                Text("\(viewModel.settings.minimumSlotMinutes) 分以上")
+                Text(String(format: String(localized: "settings.minimumSlot.label"), viewModel.settings.minimumSlotMinutes))
             }
         }
-        
-        AppSection("予定の前後の空け時間") {
+
+        AppSection("settings.buffer.title") {
             Stepper(value: $viewModel.settings.bufferMinutes, in: 0...240, step: 5) {
                 Text(bufferLabel)
             }
         } footer: {
-            Text("各予定の前後にこの時間を確保し、予定の直後・直前に空きが入らないようにします。")
+            Text("settings.buffer.footer")
         }
-        
-        AppSection("出力形式") {
+
+        AppSection("settings.outputFormat.title") {
             HStack {
-                Text("日付")
+                Text("settings.outputFormat.dateLabel")
                 Spacer()
-                Picker("日付", selection: $viewModel.outputFormat.dateStyle) {
-                    ForEach(DateOutputStyle.allCases, id: \.self) { style in
+                Picker("settings.outputFormat.dateLabel", selection: $viewModel.outputFormat.dateStyle) {
+                    ForEach(availableDateStyles, id: \.self) { style in
                         Text(style.label).tag(style)
                     }
                 }
@@ -62,20 +89,20 @@ struct SettingsSectionView: View {
                 .clipShape(.capsule)
             }
             HStack {
-                Text("時刻")
+                Text("settings.outputFormat.timeLabel")
                 Spacer()
-                Picker("時刻", selection: $viewModel.outputFormat.timeStyle) {
-                    ForEach(TimeOutputStyle.allCases, id: \.self) { style in
+                Picker("settings.outputFormat.timeLabel", selection: $viewModel.outputFormat.timeStyle) {
+                    ForEach(availableTimeStyles, id: \.self) { style in
                         Text(style.label).tag(style)
                     }
                 }
                 .pickerStyle(.menu)
                 .tint(.primary)
             }
-            
-            Toggle("0埋めする（月・日・時）", isOn: $viewModel.outputFormat.zeroPadded)
+
+            Toggle("settings.outputFormat.zeroPadded", isOn: $viewModel.outputFormat.zeroPadded)
         } footer: {
-            Text("例: \(previewSample)")
+            Text(String(format: String(localized: "settings.outputFormat.exampleLabel"), previewSample))
         }
         
         
@@ -85,14 +112,18 @@ struct SettingsSectionView: View {
     private var bufferLabel: String {
         let minutes = viewModel.settings.bufferMinutes
         if minutes == 0 {
-            return "0 分（なし）"
+            return String(localized: "settings.buffer.none")
         }
         let hours = minutes / 60
         let mins = minutes % 60
-        var parts = "前後 "
-        if hours > 0 { parts += "\(hours) 時間" }
-        if mins > 0 { parts += "\(mins) 分" }
-        return parts
+        switch (hours > 0, mins > 0) {
+        case (true, true):
+            return String(format: String(localized: "settings.buffer.hoursAndMinutes"), hours, mins)
+        case (true, false):
+            return String(format: String(localized: "settings.buffer.hoursOnly"), hours)
+        default:
+            return String(format: String(localized: "settings.buffer.minutesOnly"), mins)
+        }
     }
     
     /// 出力形式のプレビュー（固定のサンプル日時：7月6日9時5分〜18時0分）。

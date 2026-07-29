@@ -9,7 +9,17 @@ import Foundation
 
 struct ScheduleTextFormatter {
 
-    private static let weekdaySymbols = ["日", "月", "火", "水", "木", "金", "土"]
+    private static var weekdaySymbols: [String] {
+        [
+            String(localized: "weekday.sunday"),
+            String(localized: "weekday.monday"),
+            String(localized: "weekday.tuesday"),
+            String(localized: "weekday.wednesday"),
+            String(localized: "weekday.thursday"),
+            String(localized: "weekday.friday"),
+            String(localized: "weekday.saturday"),
+        ]
+    }
 
     func format(_ availability: [DateAvailability],
                 calendar: Calendar,
