@@ -46,9 +46,13 @@ jobs:
           fi
           echo "MARKETING_VERSION: ${BASE_VERSION} -> ${HEAD_VERSION}"
 
-          if git diff --name-only "origin/${BASE_REF}...HEAD" | grep -qx 'fastlane/metadata/ja/release_notes.txt'; then
-            echo "release_notes.txt が更新されています"
-          else
-            echo "::error::fastlane/metadata/ja/release_notes.txt が更新されていません"
-            exit 1
-          fi
+          CHANGED_FILES=$(git diff --name-only "origin/${BASE_REF}...HEAD")
+
+          for notes in fastlane/metadata/*/release_notes.txt; do
+            if echo "$CHANGED_FILES" | grep -qx "$notes"; then
+              echo "${notes} が更新されています"
+            else
+              echo "::error::${notes} が更新されていません"
+              exit 1
+            fi
+          done

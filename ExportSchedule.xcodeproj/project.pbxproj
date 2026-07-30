@@ -26,6 +26,20 @@
 /* Begin PBXFileReference section */
 		94E24E46301908DC0043109B /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		94E24E47301908DC0043109B /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
+		94E2526F301B1BA80043109B /* SKILL.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SKILL.md; sourceTree = "<group>"; };
+		94E25272301B1BA80043109B /* settings.local.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = settings.local.json; sourceTree = "<group>"; };
+		94E25274301B1BA80043109B /* cd.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = cd.yml; sourceTree = "<group>"; };
+		94E25275301B1BA80043109B /* pr-check.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "pr-check.yml"; sourceTree = "<group>"; };
+		94E25278301B1BA80043109B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		94E25279301B1BA80043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		94E2527C301B1BA80043109B /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
+		94E2527D301B1BA80043109B /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
+		94E2527E301B1BA80043109B /* Matchfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Matchfile; sourceTree = "<group>"; };
+		94E25280301B1BA80043109B /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		94E25281301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		94E25283301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		94E25285301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		94E25287301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		94F9F1823008BF730070EB20 /* ExportSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExportSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +88,111 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		94E25270301B1BA80043109B /* export-schedule-conventions */ = {
+			isa = PBXGroup;
+			children = (
+				94E2526F301B1BA80043109B /* SKILL.md */,
+			);
+			path = "export-schedule-conventions";
+			sourceTree = "<group>";
+		};
+		94E25271301B1BA80043109B /* skills */ = {
+			isa = PBXGroup;
+			children = (
+				94E25270301B1BA80043109B /* export-schedule-conventions */,
+			);
+			path = skills;
+			sourceTree = "<group>";
+		};
+		94E25273301B1BA80043109B /* .claude */ = {
+			isa = PBXGroup;
+			children = (
+				94E25271301B1BA80043109B /* skills */,
+				94E25272301B1BA80043109B /* settings.local.json */,
+			);
+			path = .claude;
+			sourceTree = "<group>";
+		};
+		94E25276301B1BA80043109B /* workflows */ = {
+			isa = PBXGroup;
+			children = (
+				94E25274301B1BA80043109B /* cd.yml */,
+				94E25275301B1BA80043109B /* pr-check.yml */,
+			);
+			path = workflows;
+			sourceTree = "<group>";
+		};
+		94E25277301B1BA80043109B /* .github */ = {
+			isa = PBXGroup;
+			children = (
+				94E25276301B1BA80043109B /* workflows */,
+			);
+			path = .github;
+			sourceTree = "<group>";
+		};
+		94E2527A301B1BA80043109B /* ja */ = {
+			isa = PBXGroup;
+			children = (
+				94E25279301B1BA80043109B /* release_notes.txt */,
+			);
+			path = ja;
+			sourceTree = "<group>";
+		};
+		94E2527B301B1BA80043109B /* metadata */ = {
+			isa = PBXGroup;
+			children = (
+				94E25282301B1CD10043109B /* en-AU */,
+				94E25284301B1CD10043109B /* en-CA */,
+				94E25286301B1CD10043109B /* en-GB */,
+				94E25288301B1CD10043109B /* en-US */,
+				94E2527A301B1BA80043109B /* ja */,
+			);
+			path = metadata;
+			sourceTree = "<group>";
+		};
+		94E2527F301B1BA80043109B /* fastlane */ = {
+			isa = PBXGroup;
+			children = (
+				94E2527B301B1BA80043109B /* metadata */,
+				94E2527C301B1BA80043109B /* Appfile */,
+				94E2527D301B1BA80043109B /* Fastfile */,
+				94E2527E301B1BA80043109B /* Matchfile */,
+			);
+			path = fastlane;
+			sourceTree = "<group>";
+		};
+		94E25282301B1CD10043109B /* en-AU */ = {
+			isa = PBXGroup;
+			children = (
+				94E25281301B1CD10043109B /* release_notes.txt */,
+			);
+			path = "en-AU";
+			sourceTree = "<group>";
+		};
+		94E25284301B1CD10043109B /* en-CA */ = {
+			isa = PBXGroup;
+			children = (
+				94E25283301B1CD10043109B /* release_notes.txt */,
+			);
+			path = "en-CA";
+			sourceTree = "<group>";
+		};
+		94E25286301B1CD10043109B /* en-GB */ = {
+			isa = PBXGroup;
+			children = (
+				94E25285301B1CD10043109B /* release_notes.txt */,
+			);
+			path = "en-GB";
+			sourceTree = "<group>";
+		};
+		94E25288301B1CD10043109B /* en-US */ = {
+			isa = PBXGroup;
+			children = (
+				94E25287301B1CD10043109B /* release_notes.txt */,
+			);
+			path = "en-US";
+			sourceTree = "<group>";
+		};
 		94F9F1793008BF730070EB20 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +201,11 @@
 				94F9F19C3008BF760070EB20 /* ExportScheduleUITests */,
 				94E24E46301908DC0043109B /* AGENTS.md */,
 				94E24E47301908DC0043109B /* CLAUDE.md */,
+				94E25273301B1BA80043109B /* .claude */,
+				94E25277301B1BA80043109B /* .github */,
+				94E25278301B1BA80043109B /* .gitignore */,
+				94E2527F301B1BA80043109B /* fastlane */,
+				94E25280301B1BA80043109B /* Secrets.xcconfig */,
 				94F9F1833008BF730070EB20 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -403,7 +527,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -420,7 +544,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportSchedule.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -439,7 +563,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -456,7 +580,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
