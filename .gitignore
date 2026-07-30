@@ -1,0 +1,24 @@
+# Xcode
+xcuserdata/
+DerivedData/
+*.xcuserstate
+
+# Secrets
+Secrets.xcconfig
+*.p12
+*.p8
+*.mobileprovision
+*.cer
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# Ruby / bundler
+/.bundle/
+/vendor/bundle/
+
+# macOS
+.DS_Store

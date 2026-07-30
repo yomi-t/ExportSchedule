@@ -1,0 +1,57 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and submit a new release build to App Store review"
+  lane :release do
+    api_key = app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_content: ENV["ASC_KEY_CONTENT"],
+      is_key_content_base64: true
+    )
+
+    setup_ci if ENV["CI"]
+
+    match(
+      type: "appstore",
+      api_key: api_key,
+      readonly: true
+    )
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "ExportSchedule.xcodeproj",
+      team_id: ENV["APPLE_TEAM_ID"] || "2KUQ5AS45S",
+      code_sign_identity: "Apple Distribution",
+      bundle_identifier: "com.taiga.ito.ExportSchedule",
+      profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.taiga.ito.ExportSchedule"],
+      targets: ["ExportSchedule"]
+    )
+
+    begin
+      latest_build_number = app_store_build_number(
+        api_key: api_key,
+        app_identifier: "com.taiga.ito.ExportSchedule",
+        live: false
+      )
+      increment_build_number(build_number: latest_build_number + 1)
+    rescue StandardError => e
+      UI.important("app_store_build_number の取得に失敗したため、現在のビルド番号をそのまま使用します: #{e.message}")
+    end
+
+    build_app(
+      scheme: "ExportSchedule",
+      export_method: "app-store"
+    )
+
+    upload_to_app_store(
+      api_key: api_key,
+      submit_for_review: true,
+      automatic_release: false,
+      force: true,
+      skip_screenshots: true,
+      skip_metadata: false,
+      precheck_include_in_app_purchases: false
+    )
+  end
+end
