@@ -38,7 +38,9 @@ final class EventKitCalendarService: CalendarEventProviding, Sendable {
         try await store.requestFullAccessToEvents()
     }
 
-    func busyIntervals(from start: Date, to end: Date) async -> [BusyInterval] {
+    func busyIntervals(from start: Date, to end: Date, timeZone: TimeZone) async -> [BusyInterval] {
+        // EventKit の終日予定はデバイスのローカルタイムゾーンに揃った Date で返るため、
+        // timeZone は使用しない（プロトコル準拠のため受け取るのみ）。
         let store = self.store
         // events(matching:) は同期かつ重い処理のためメインアクター外で実行する。
         return await Task.detached(priority: .userInitiated) {

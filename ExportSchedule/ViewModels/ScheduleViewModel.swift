@@ -114,7 +114,7 @@ final class ScheduleViewModel {
             let fetchStart = calendar.startOfDay(for: settings.rangeStart)
             let endDay = calendar.startOfDay(for: settings.rangeEnd)
             let fetchEnd = calendar.date(byAdding: .day, value: 1, to: endDay) ?? settings.rangeEnd
-            let busy = try await activeService.busyIntervals(from: fetchStart, to: fetchEnd)
+            let busy = try await activeService.busyIntervals(from: fetchStart, to: fetchEnd, timeZone: calendar.timeZone)
 
             // 3. 日別スケジュールを計算 → 空き状況を導出 → 整形。
             let schedules = calculator.computeDaySchedules(busyIntervals: busy,

@@ -75,13 +75,13 @@ final class GoogleCalendarService: CalendarEventProviding, Sendable {
 #endif
     }
 
-    func busyIntervals(from start: Date, to end: Date) async throws -> [BusyInterval] {
+    func busyIntervals(from start: Date, to end: Date, timeZone: TimeZone) async throws -> [BusyInterval] {
         let accessToken = try await validAccessToken()
         let calendarIDs = try await fetchCalendarIDs(accessToken: accessToken)
 
         var allIntervals: [BusyInterval] = []
         for calendarID in calendarIDs {
-            let intervals = try await fetchBusyIntervals(calendarID: calendarID, accessToken: accessToken, from: start, to: end)
+            let intervals = try await fetchBusyIntervals(calendarID: calendarID, accessToken: accessToken, from: start, to: end, timeZone: timeZone)
             allIntervals.append(contentsOf: intervals)
         }
         return allIntervals.sorted()
@@ -136,7 +136,7 @@ final class GoogleCalendarService: CalendarEventProviding, Sendable {
         return ids
     }
 
-    private struct EventsResponse: Decodable {
+    struct EventsResponse: Decodable {
         struct EventDateTime: Decodable {
             let date: String?
             let dateTime: String?
@@ -152,7 +152,7 @@ final class GoogleCalendarService: CalendarEventProviding, Sendable {
         let nextPageToken: String?
     }
 
-    private func fetchBusyIntervals(calendarID: String, accessToken: String, from start: Date, to end: Date) async throws -> [BusyInterval] {
+    private func fetchBusyIntervals(calendarID: String, accessToken: String, from start: Date, to end: Date, timeZone: TimeZone) async throws -> [BusyInterval] {
         var intervals: [BusyInterval] = []
         var pageToken: String?
         let isoFormatter = ISO8601DateFormatter()
@@ -175,7 +175,7 @@ final class GoogleCalendarService: CalendarEventProviding, Sendable {
             let response: EventsResponse = try await get(components.url!, accessToken: accessToken)
 
             for event in response.items where event.transparency != "transparent" {
-                if let interval = busyInterval(from: event, isoFormatter: isoFormatter) {
+                if let interval = busyInterval(from: event, isoFormatter: isoFormatter, timeZone: timeZone) {
                     intervals.append(interval)
                 }
             }
@@ -185,14 +185,17 @@ final class GoogleCalendarService: CalendarEventProviding, Sendable {
         return intervals
     }
 
-    private func busyInterval(from event: EventsResponse.Event, isoFormatter: ISO8601DateFormatter) -> BusyInterval? {
+    /// Google API のイベントを `BusyInterval` に変換する。
+    /// ネットワーク/SDK に依存しない純粋な日付変換ロジックのためテスト対象とする。
+    func busyInterval(from event: EventsResponse.Event, isoFormatter: ISO8601DateFormatter, timeZone: TimeZone) -> BusyInterval? {
         let title = event.summary ?? ""
 
         if let dateString = event.start?.date, let endDateString = event.end?.date {
-            // 終日予定（date のみで時刻を持たない）。UTC 基準の日付境界として解釈する。
+            // 終日予定（date のみで時刻を持たない）。EventKit の終日予定と同じ意味論に揃えるため、
+            // UTC ではなく呼び出し側のタイムゾーン（settings.calendar.timeZone）の現地 0 時として解釈する。
             let dayFormatter = DateFormatter()
             dayFormatter.dateFormat = "yyyy-MM-dd"
-            dayFormatter.timeZone = TimeZone(identifier: "UTC")
+            dayFormatter.timeZone = timeZone
             guard let startDate = dayFormatter.date(from: dateString),
                   let endDate = dayFormatter.date(from: endDateString) else { return nil }
             return BusyInterval(start: startDate, end: endDate, isAllDay: true, title: title)
