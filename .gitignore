@@ -1,12 +1,24 @@
-# Xcode ビルド生成物
+# Xcode
+xcuserdata/
 DerivedData/
-*.moved-aside
-*.xccheckout
-*.xcscmblueprint
+*.xcuserstate
+
+# Secrets
+Secrets.xcconfig
+*.p12
+*.p8
+*.mobileprovision
+*.cer
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# Ruby / bundler
+/.bundle/
+/vendor/bundle/
 
 # macOS
 .DS_Store
-
-# ローカル限定の秘匿設定(OAuth クライアント ID など)。
-# テンプレートは Secrets.xcconfig.example を参照。
-Secrets.xcconfig
