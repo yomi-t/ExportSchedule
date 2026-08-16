@@ -21,6 +21,16 @@ jobs:
         with:
           xcode-version: latest-stable
 
+      - name: Generate Secrets.xcconfig
+        env:
+          GID_CLIENT_ID: ${{ secrets.GID_CLIENT_ID }}
+          GID_REVERSED_CLIENT_ID: ${{ secrets.GID_REVERSED_CLIENT_ID }}
+        run: |
+          cat <<EOF > Secrets.xcconfig
+          GID_CLIENT_ID = $GID_CLIENT_ID
+          GID_REVERSED_CLIENT_ID = $GID_REVERSED_CLIENT_ID
+          EOF
+
       - name: Run tests
         run: |
           xcodebuild test \
