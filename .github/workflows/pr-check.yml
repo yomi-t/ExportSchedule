@@ -36,7 +36,8 @@ jobs:
           xcodebuild test \
             -project ExportSchedule.xcodeproj \
             -scheme ExportSchedule \
-            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest'
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
+            -testLanguage ja -testRegion JP
 
   release-readiness:
     if: github.event_name == 'pull_request'

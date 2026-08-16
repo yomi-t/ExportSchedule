@@ -3,32 +3,31 @@
 //  ExportSchedule
 //
 //  空き状況（DateAvailability）を読みやすいテキストへ整形する純粋ロジック。
-//  曜日表記はシステムの言語設定（Locale.current）に追従する。
+//  曜日表記はシステムの言語設定に追従する。
 //
 
 import Foundation
 
 struct ScheduleTextFormatter {
 
-    private static func weekdaySymbols(locale: Locale) -> [String] {
+    private static var weekdaySymbols: [String] {
         [
-            String(localized: "weekday.sunday", locale: locale),
-            String(localized: "weekday.monday", locale: locale),
-            String(localized: "weekday.tuesday", locale: locale),
-            String(localized: "weekday.wednesday", locale: locale),
-            String(localized: "weekday.thursday", locale: locale),
-            String(localized: "weekday.friday", locale: locale),
-            String(localized: "weekday.saturday", locale: locale),
+            String(localized: "weekday.sunday"),
+            String(localized: "weekday.monday"),
+            String(localized: "weekday.tuesday"),
+            String(localized: "weekday.wednesday"),
+            String(localized: "weekday.thursday"),
+            String(localized: "weekday.friday"),
+            String(localized: "weekday.saturday"),
         ]
     }
 
     func format(_ availability: [DateAvailability],
                 calendar: Calendar,
-                outputFormat: TextOutputFormat = TextOutputFormat(),
-                locale: Locale = .current) -> String {
+                outputFormat: TextOutputFormat = TextOutputFormat()) -> String {
         availability
             .filter { $0.hasOutput }
-            .map { line(for: $0, calendar: calendar, outputFormat: outputFormat, locale: locale) }
+            .map { line(for: $0, calendar: calendar, outputFormat: outputFormat) }
             .joined(separator: "\n")
     }
 
@@ -36,9 +35,8 @@ struct ScheduleTextFormatter {
 
     private func line(for availability: DateAvailability,
                       calendar: Calendar,
-                      outputFormat: TextOutputFormat,
-                      locale: Locale) -> String {
-        let prefix = dateText(for: availability.day, calendar: calendar, outputFormat: outputFormat, locale: locale)
+                      outputFormat: TextOutputFormat) -> String {
+        let prefix = dateText(for: availability.day, calendar: calendar, outputFormat: outputFormat)
         let ranges = availability.freeIntervals
             .map { timeRangeText(for: $0, calendar: calendar, outputFormat: outputFormat) }
             .joined(separator: ", ")
@@ -47,12 +45,11 @@ struct ScheduleTextFormatter {
 
     func dateText(for day: Date,
                   calendar: Calendar,
-                  outputFormat: TextOutputFormat = TextOutputFormat(),
-                  locale: Locale = .current) -> String {
+                  outputFormat: TextOutputFormat = TextOutputFormat()) -> String {
         let month = calendar.component(.month, from: day)
         let dayOfMonth = calendar.component(.day, from: day)
         let weekday = calendar.component(.weekday, from: day)
-        let symbol = Self.weekdaySymbols(locale: locale)[(weekday - 1) % 7]
+        let symbol = Self.weekdaySymbols[(weekday - 1) % 7]
 
         let monthStr = outputFormat.zeroPadded ? String(format: "%02d", month) : "\(month)"
         let dayStr = outputFormat.zeroPadded ? String(format: "%02d", dayOfMonth) : "\(dayOfMonth)"
