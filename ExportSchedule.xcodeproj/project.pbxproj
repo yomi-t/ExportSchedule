@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		94E24F03301A3A990043109B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 94E24F02301A3A990043109B /* GoogleSignIn */; };
+		94E24F05301A3A990043109B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 94E24F04301A3A990043109B /* GoogleSignInSwift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		94F9F1903008BF760070EB20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15858AD165936B0C32DAF43E /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		2C556CC9038B8D228BE00D22 /* InfoPlistAdditions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InfoPlistAdditions.plist; sourceTree = "<group>"; };
 		94E24E46301908DC0043109B /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		94E24E47301908DC0043109B /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		94E2526F301B1BA80043109B /* SKILL.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SKILL.md; sourceTree = "<group>"; };
@@ -35,7 +42,6 @@
 		94E2527C301B1BA80043109B /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
 		94E2527D301B1BA80043109B /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
 		94E2527E301B1BA80043109B /* Matchfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Matchfile; sourceTree = "<group>"; };
-		94E25280301B1BA80043109B /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		94E25281301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		94E25283301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		94E25285301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
@@ -68,6 +74,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E24F03301A3A990043109B /* GoogleSignIn in Frameworks */,
+				94E24F05301A3A990043109B /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,11 +209,12 @@
 				94F9F19C3008BF760070EB20 /* ExportScheduleUITests */,
 				94E24E46301908DC0043109B /* AGENTS.md */,
 				94E24E47301908DC0043109B /* CLAUDE.md */,
+				15858AD165936B0C32DAF43E /* Secrets.xcconfig */,
+				2C556CC9038B8D228BE00D22 /* InfoPlistAdditions.plist */,
 				94E25273301B1BA80043109B /* .claude */,
 				94E25277301B1BA80043109B /* .github */,
 				94E25278301B1BA80043109B /* .gitignore */,
 				94E2527F301B1BA80043109B /* fastlane */,
-				94E25280301B1BA80043109B /* Secrets.xcconfig */,
 				94F9F1833008BF730070EB20 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -240,6 +249,8 @@
 			);
 			name = ExportSchedule;
 			packageProductDependencies = (
+				94E24F02301A3A990043109B /* GoogleSignIn */,
+				94E24F04301A3A990043109B /* GoogleSignInSwift */,
 			);
 			productName = ExportSchedule;
 			productReference = 94F9F1823008BF730070EB20 /* ExportSchedule.app */;
@@ -325,6 +336,7 @@
 			mainGroup = 94F9F1793008BF730070EB20;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				94E24F01301A3A990043109B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 94F9F1833008BF730070EB20 /* Products */;
@@ -523,6 +535,7 @@
 		};
 		94F9F1A43008BF760070EB20 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15858AD165936B0C32DAF43E /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -531,13 +544,13 @@
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = InfoPlistAdditions.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SE Debug";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "空き時間を計算するためにカレンダーの予定を読み取ります。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
@@ -560,6 +573,7 @@
 		};
 		94F9F1A53008BF760070EB20 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15858AD165936B0C32DAF43E /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -568,13 +582,13 @@
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Schedule Exporter";
+				INFOPLIST_FILE = InfoPlistAdditions.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SE Debug";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "空き時間を計算するためにカレンダーの予定を読み取ります。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
@@ -719,6 +733,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		94E24F01301A3A990043109B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		94E24F02301A3A990043109B /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94E24F01301A3A990043109B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		94E24F04301A3A990043109B /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94E24F01301A3A990043109B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 94F9F17A3008BF730070EB20 /* Project object */;
 }

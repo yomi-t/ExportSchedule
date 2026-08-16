@@ -96,7 +96,7 @@ final class FreeDaysViewModel {
             let fetchStart = calendar.startOfDay(for: settings.rangeStart)
             let endDay = calendar.startOfDay(for: settings.rangeEnd)
             let fetchEnd = calendar.date(byAdding: .day, value: 1, to: endDay) ?? settings.rangeEnd
-            let busy = try await service.busyIntervals(from: fetchStart, to: fetchEnd)
+            let busy = try await service.busyIntervals(from: fetchStart, to: fetchEnd, timeZone: calendar.timeZone)
 
             // 3. 日別の予定一覧（時間帯とは無関係）と、空いてる日を判定。
             let freeDays = calculator.computeFreeDays(busyIntervals: busy,

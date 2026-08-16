@@ -24,9 +24,10 @@ struct ScheduleTextFormatterTests {
         let expected = ["日", "月", "火", "水", "木", "金", "土"]
         for (offset, symbol) in expected.enumerated() {
             let day = TestSupport.date(2026, 6, 14 + offset)
-            let availability = [DateAvailability(day: day, freeIntervals: [])]
+            let availability = [DateAvailability(day: day,
+                                                 freeIntervals: [range((2026, 6, 14 + offset), (10, 0), (18, 0))])]
             let text = formatter.format(availability, calendar: calendar)
-            #expect(text == "6/\(14 + offset)(\(symbol)) 終日OK")
+            #expect(text == "6/\(14 + offset)(\(symbol)) 10:00〜18:00")
         }
     }
 
@@ -48,12 +49,12 @@ struct ScheduleTextFormatterTests {
         #expect(text == "6/15(月) 10:00〜12:00, 14:00〜18:00")
     }
 
-    @Test func fullyFreeDayShowsAllDayLabel() {
+    @Test func fullyFreeDayUsesExistingRangeFormat() {
         let availability = [DateAvailability(day: TestSupport.date(2026, 6, 16),
-                                             freeIntervals: []
+                                             freeIntervals: [range((2026, 6, 16), (10, 0), (18, 0))]
                                              )]
         let text = formatter.format(availability, calendar: calendar)
-        #expect(text == "6/16(火) 終日OK")
+        #expect(text == "6/16(火) 10:00〜18:00")
     }
 
     @Test func minutesAreZeroPaddedAndHoursAreNot() {
@@ -72,11 +73,11 @@ struct ScheduleTextFormatterTests {
                                              range((2026, 6, 15), (14, 0), (18, 0))]
                              ),
             DateAvailability(day: TestSupport.date(2026, 6, 16),
-                             freeIntervals: []
+                             freeIntervals: [range((2026, 6, 16), (10, 0), (18, 0))]
                              ),
         ]
         let text = formatter.format(availability, calendar: calendar)
-        #expect(text == "6/15(月) 10:00〜12:00, 14:00〜18:00\n6/16(火) 終日OK")
+        #expect(text == "6/15(月) 10:00〜12:00, 14:00〜18:00\n6/16(火) 10:00〜18:00")
     }
 
     @Test func emptyAvailabilityProducesEmptyString() {
