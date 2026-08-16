@@ -9,7 +9,13 @@ import SwiftUI
 
 struct SettingsSectionView: View {
     @Bindable var viewModel: ScheduleViewModel
-    
+
+#if DEBUG
+    /// 期間セクションのタイトル連続タップ回数（5回でDebug画面を開く）。
+    @State private var dateRangeTitleTapCount = 0
+    @State private var showsDebugSettings = false
+#endif
+
     /// 曜日表示用（weekday 1...7 = 日〜土）。
     private var weekdayLabels: [String] {
         [
@@ -39,7 +45,19 @@ struct SettingsSectionView: View {
     }
 
     var body: some View {
-        AppSection("settings.dateRange.title") {
+        AppSection(header: {
+            Text("settings.dateRange.title")
+#if DEBUG
+                .contentShape(.rect)
+                .onTapGesture {
+                    dateRangeTitleTapCount += 1
+                    if dateRangeTitleTapCount >= 5 {
+                        dateRangeTitleTapCount = 0
+                        showsDebugSettings = true
+                    }
+                }
+#endif
+        }) {
             // ラベルはあらかじめ現在の表示言語で解決した String を渡す（DatePickerのString版initはLocalizedStringKeyとして
             // 再解決されないため、直後の .environment(\.locale:) が日付書式にのみ作用しラベルには影響しない）。
             DatePicker(String(localized: "settings.dateRange.start"), selection: $viewModel.settings.rangeStart, displayedComponents: .date)
@@ -47,6 +65,11 @@ struct SettingsSectionView: View {
             DatePicker(String(localized: "settings.dateRange.end"), selection: $viewModel.settings.rangeEnd, displayedComponents: .date)
                 .environment(\.locale, Locale(identifier: "ja_JP"))
         }
+#if DEBUG
+        .sheet(isPresented: $showsDebugSettings) {
+            DebugSettingsView(viewModel: viewModel)
+        }
+#endif
         AppSection("settings.weekdays.title") {
             HStack {
                 ForEach(1...7, id: \.self) { weekday in

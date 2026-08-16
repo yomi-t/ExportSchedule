@@ -7,8 +7,9 @@ ExportSchedule プロジェクトで作業する AI コーディングアシス�
 カレンダーの空き時間を抽出してテキストとして出力する iOS ユーティリティアプリです。
 
 - SwiftUI 製、iOS 26.0+
-- `ExportSchedule.xcodeproj` 単体構成(ワークスペースなし、Swift Package Manager による外部依存なし)
+- `ExportSchedule.xcodeproj` 単体構成(ワークスペースなし)
 - Bundle ID: `com.taiga.ito.ExportSchedule`
+- Swift Package Manager 依存: `GoogleSignIn-iOS`(Google カレンダー連携の認証用)
 
 ## アーキテクチャ
 
@@ -16,7 +17,7 @@ ExportSchedule プロジェクトで作業する AI コーディングアシス�
 
 - **`Models/`** — `Codable, Sendable, Hashable` を実装した素のデータ構造。ロジックを持たせない。
 - **`Logic/`** — EventKit など外部依存を一切持たない純粋関数群。Foundation のみで完結させ、テスト容易性を保つ。
-- **`Services/`** — 外部依存の抽象化。`CalendarEventProviding` プロトコルで EventKit をモック差し替え可能にしている。**`EventKitCalendarService.swift` は EventKit を import する唯一のファイル**という制約があるため、EventKit への依存を新たに増やす場合もこのファイルに閉じ込めること。
+- **`Services/`** — 外部依存の抽象化。`CalendarEventProviding` プロトコルで EventKit / Google Calendar をモック差し替え可能にしている。**`EventKitCalendarService.swift` は EventKit を import する唯一のファイル**、**`GoogleCalendarService.swift` は GoogleSignIn を import する唯一のファイル**という制約があるため、それぞれへの依存を新たに増やす場合もこのファイルに閉じ込めること。カレンダーの取得元（Apple / Google）の切り替えは `ScheduleViewModel` の `calendarSource` が担う。
 - **`ViewModels/`** — `@MainActor @Observable final class`(Observation フレームワーク)。`ObservableObject` / `@Published` は使わない。
 - **`Views/`** / **`Views/Components/`** — SwiftUI ビュー。複数箇所で再利用する部品は `Components/` に分離する。
 

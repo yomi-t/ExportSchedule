@@ -21,7 +21,9 @@ struct DateAvailability: Sendable, Hashable, Identifiable {
         self.freeIntervals = freeIntervals
     }
 
-    /// 出力に表示すべき内容がある日か（終日OK もしくは空き区間が存在）。
+    /// 出力に表示すべき内容がある日か（空き区間が1つ以上存在するか）。
+    /// 予定が全くない日も `FreeSlotCalculator` が稼働時間全体を1つの空き区間として
+    /// `freeIntervals` に含めるため、ここで別途「終日」を判定する必要はない。
     var hasOutput: Bool {
         !freeIntervals.isEmpty
     }

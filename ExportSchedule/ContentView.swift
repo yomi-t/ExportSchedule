@@ -27,8 +27,31 @@ struct ContentView: View {
     @State private var scrollPosition = ScrollPosition()
     /// 現在の縦スクロールオフセット（相対スクロールの基準に使う）。
     @State private var scrollOffsetY: CGFloat = 0
+    /// 初回のカレンダーソース選択画面を表示中かどうか。
+    @State private var showsInitialCalendarSourceSelection = false
 
     var body: some View {
+        TabView {
+            Tab("content.tab.main", systemImage: "calendar") {
+                mainContent
+            }
+            Tab("content.tab.settings", systemImage: "gearshape") {
+                CalendarSourceSettingsView(viewModel: viewModel)
+            }
+        }
+        .onAppear {
+            showsInitialCalendarSourceSelection = viewModel.needsInitialCalendarSourceSelection
+        }
+        .sheet(isPresented: $showsInitialCalendarSourceSelection) {
+            CalendarSourceOnboardingView(viewModel: viewModel) {
+                showsInitialCalendarSourceSelection = false
+            }
+            .interactiveDismissDisabled()
+        }
+    }
+
+    /// 「メイン」タブの表示内容（設定・生成・プレビュー・出力）。
+    private var mainContent: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 Picker("content.mode.picker", selection: $selectedMode) {

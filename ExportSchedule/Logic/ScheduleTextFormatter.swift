@@ -2,7 +2,8 @@
 //  ScheduleTextFormatter.swift
 //  ExportSchedule
 //
-//  空き状況（DateAvailability）を日本語の読みやすいテキストへ整形する純粋ロジック。
+//  空き状況（DateAvailability）を読みやすいテキストへ整形する純粋ロジック。
+//  曜日表記はシステムの言語設定に追従する。
 //
 
 import Foundation

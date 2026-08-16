@@ -1,1 +1,1 @@
-Added a feature to output your available dates!!
+We've added Google Calendar integration, making the app accessible to even more people!

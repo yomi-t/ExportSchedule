@@ -41,6 +41,26 @@ final class ScheduleViewModel {
     /// 現在のカレンダー認可状態。
     private(set) var authorizationState: CalendarAuthorizationStatus
 
+    /// 予定の取得元（Apple カレンダー / Google カレンダー）。変更するたびに永続化する。
+    var calendarSource: CalendarSource = .apple {
+        didSet {
+            guard calendarSource != oldValue else { return }
+            userDefaults.set(calendarSource.rawValue, forKey: Self.calendarSourceDefaultsKey)
+            authorizationState = activeService.authorizationStatus()
+        }
+    }
+
+    /// 初回のカレンダーソース選択が完了しているかどうか。DEBUG 画面から手動で切り替えられるように設定可能にしている。
+    var hasCompletedInitialCalendarSourceSelection: Bool {
+        get { userDefaults.bool(forKey: Self.hasCompletedInitialCalendarSourceSelectionKey) }
+        set { userDefaults.set(newValue, forKey: Self.hasCompletedInitialCalendarSourceSelectionKey) }
+    }
+
+    /// 初回のカレンダーソース選択がまだ完了していないかどうか。
+    var needsInitialCalendarSourceSelection: Bool {
+        !hasCompletedInitialCalendarSourceSelection
+    }
+
     /// 計算・取得中フラグ。
     private(set) var isLoading: Bool = false
 
@@ -52,17 +72,43 @@ final class ScheduleViewModel {
 
     // MARK: - 依存
 
-    private let service: any CalendarEventProviding
+    private let eventKitService: any CalendarEventProviding
+    private let googleService: any CalendarEventProviding
+    private let userDefaults: UserDefaults
     private let calculator = FreeSlotCalculator()
     private let formatter = ScheduleTextFormatter()
 
+    private static let calendarSourceDefaultsKey = "calendarSource"
+    private static let hasCompletedInitialCalendarSourceSelectionKey = "hasCompletedInitialCalendarSourceSelection"
+
+    /// `calendarSource` に応じて実際に使用するサービス。
+    private var activeService: any CalendarEventProviding {
+        switch calendarSource {
+        case .apple: eventKitService
+        case .google: googleService
+        }
+    }
+
     // MARK: - 初期化
 
-    init(service: any CalendarEventProviding = EventKitCalendarService(),
+    init(eventKitService: any CalendarEventProviding = EventKitCalendarService(),
+         googleService: any CalendarEventProviding = GoogleCalendarService(),
+         userDefaults: UserDefaults = .standard,
          referenceDate: Date = Date()) {
-        self.service = service
+        self.eventKitService = eventKitService
+        self.googleService = googleService
+        self.userDefaults = userDefaults
         self.settings = FreeSlotSettings.makeDefault(referenceDate: referenceDate)
-        self.authorizationState = service.authorizationStatus()
+
+        let resolvedSource: CalendarSource
+        if let savedRawValue = userDefaults.string(forKey: Self.calendarSourceDefaultsKey),
+           let savedSource = CalendarSource(rawValue: savedRawValue) {
+            resolvedSource = savedSource
+        } else {
+            resolvedSource = .apple
+        }
+        self.calendarSource = resolvedSource
+        self.authorizationState = (resolvedSource == .apple ? eventKitService : googleService).authorizationStatus()
     }
 
     // MARK: - アクション
@@ -76,15 +122,17 @@ final class ScheduleViewModel {
         do {
             // 1. 認可確認・要求。
             if authorizationState == .notDetermined {
-                let granted = try await service.requestAccess()
-                authorizationState = service.authorizationStatus()
+                let granted = try await activeService.requestAccess()
+                authorizationState = activeService.authorizationStatus()
                 if !granted {
                     errorMessage = String(localized: "error.accessDenied")
                     return
                 }
             }
             guard authorizationState == .fullAccess else {
-                errorMessage = String(localized: "error.accessRequired")
+                errorMessage = calendarSource == .google
+                    ? String(localized: "error.accessRequired.google")
+                    : String(localized: "error.accessRequired")
                 return
             }
 
@@ -93,7 +141,7 @@ final class ScheduleViewModel {
             let fetchStart = calendar.startOfDay(for: settings.rangeStart)
             let endDay = calendar.startOfDay(for: settings.rangeEnd)
             let fetchEnd = calendar.date(byAdding: .day, value: 1, to: endDay) ?? settings.rangeEnd
-            let busy = try await service.busyIntervals(from: fetchStart, to: fetchEnd)
+            let busy = try await activeService.busyIntervals(from: fetchStart, to: fetchEnd, timeZone: calendar.timeZone)
 
             // 3. 日別スケジュールを計算 → 空き状況を導出 → 整形。
             let schedules = calculator.computeDaySchedules(busyIntervals: busy,
@@ -126,6 +174,31 @@ final class ScheduleViewModel {
     func copyToClipboard() {
         guard !outputText.isEmpty else { return }
         Clipboard.copy(outputText)
+    }
+
+    /// 初回のカレンダーソース選択が完了したことを記録する。
+    func completeInitialCalendarSourceSelection() {
+        hasCompletedInitialCalendarSourceSelection = true
+    }
+
+    /// オンボーディングで選択した `calendarSource` に応じて、Apple ならアクセス権限を、
+    /// Google ならアカウント連携をその場で要求する。許可されたら true。
+    @discardableResult
+    func requestInitialCalendarAccess() async -> Bool {
+        errorMessage = nil
+        do {
+            let granted = try await activeService.requestAccess()
+            authorizationState = activeService.authorizationStatus()
+            if !granted {
+                errorMessage = calendarSource == .google
+                    ? String(localized: "error.accessRequired.google")
+                    : String(localized: "error.accessRequired")
+            }
+            return granted
+        } catch {
+            errorMessage = String(format: String(localized: "error.fetchFailed"), error.localizedDescription)
+            return false
+        }
     }
 
     // MARK: - 内部

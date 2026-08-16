@@ -2,7 +2,10 @@ name: PR Check
 
 on:
   pull_request:
-    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -16,14 +19,26 @@ jobs:
         with:
           xcode-version: latest-stable
 
+      - name: Generate Secrets.xcconfig
+        env:
+          GID_CLIENT_ID: ${{ secrets.GID_CLIENT_ID }}
+          GID_REVERSED_CLIENT_ID: ${{ secrets.GID_REVERSED_CLIENT_ID }}
+        run: |
+          cat <<EOF > Secrets.xcconfig
+          GID_CLIENT_ID = $GID_CLIENT_ID
+          GID_REVERSED_CLIENT_ID = $GID_REVERSED_CLIENT_ID
+          EOF
+
       - name: Run tests
         run: |
           xcodebuild test \
             -project ExportSchedule.xcodeproj \
             -scheme ExportSchedule \
-            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest'
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
+            -testLanguage ja -testRegion JP
 
   release-readiness:
+    if: github.base_ref == 'main'
     runs-on: macos-latest
     steps:
       - name: Checkout

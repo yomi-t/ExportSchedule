@@ -1,9 +1,7 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
-    "%lld" : {
-
-    },
+    "%lld" : {},
     "action.exportFreeTime" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -89,6 +87,108 @@
         }
       }
     },
+    "content.tab.debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバッグ"
+          }
+        }
+      }
+    },
+    "content.tab.main" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Main"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メイン"
+          }
+        }
+      }
+    },
+    "content.tab.settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
+    },
+    "debug.calendarSourceOnboarding.footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn this off and relaunch the app to see the first-launch calendar source picker again."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OFF にしてアプリを再起動すると、初回起動時のカレンダーソース選択シートを再度表示できます。"
+          }
+        }
+      }
+    },
+    "debug.calendarSourceOnboarding.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Initial Calendar Source Selection"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "初回カレンダーソース選択"
+          }
+        }
+      }
+    },
+    "debug.calendarSourceOnboarding.toggle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as Completed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択済みとして扱う"
+          }
+        }
+      }
+    },
     "error.accessDenied" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -123,6 +223,23 @@
         }
       }
     },
+    "error.accessRequired.google" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google Calendar access is required. Please sign in with your Google account."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google カレンダーへのアクセスが必要です。Google アカウントでサインインしてください。"
+          }
+        }
+      }
+    },
     "error.fetchFailed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -136,6 +253,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "予定の取得に失敗しました: %@"
+          }
+        }
+      }
+    },
+    "error.google.notSignedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not signed in with a Google account."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google アカウントでサインインされていません。"
+          }
+        }
+      }
+    },
+    "error.google.presentationFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not display the Google sign-in screen."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google サインイン画面を表示できませんでした。"
+          }
+        }
+      }
+    },
+    "error.google.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The request to Google Calendar failed."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google カレンダーへのリクエストに失敗しました。"
+          }
+        }
+      }
+    },
+    "error.google.signInCancelled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google sign-in was cancelled."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google サインインがキャンセルされました。"
           }
         }
       }
@@ -463,6 +648,57 @@
         }
       }
     },
+    "onboarding.calendarSource.confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "決定"
+          }
+        }
+      }
+    },
+    "onboarding.calendarSource.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose which calendar to use. You can change this later from the Settings tab."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "予定の取得元を選んでください。「設定」タブからいつでも変更できます。"
+          }
+        }
+      }
+    },
+    "onboarding.calendarSource.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Your Calendar"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カレンダーの取得元を選択"
+          }
+        }
+      }
+    },
     "output.copied" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -731,6 +967,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "予定の前後の空け時間"
+          }
+        }
+      }
+    },
+    "settings.calendarSource.apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Calendar"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple カレンダー"
+          }
+        }
+      }
+    },
+    "settings.calendarSource.google" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google Calendar"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google カレンダー"
+          }
+        }
+      }
+    },
+    "settings.calendarSource.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar Source"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カレンダーの取得元"
           }
         }
       }
