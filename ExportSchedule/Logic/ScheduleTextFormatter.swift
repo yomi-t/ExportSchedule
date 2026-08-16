@@ -9,15 +9,17 @@ import Foundation
 
 struct ScheduleTextFormatter {
 
+    private static let outputLocale = Locale(identifier: "ja")
+
     private static var weekdaySymbols: [String] {
         [
-            String(localized: "weekday.sunday"),
-            String(localized: "weekday.monday"),
-            String(localized: "weekday.tuesday"),
-            String(localized: "weekday.wednesday"),
-            String(localized: "weekday.thursday"),
-            String(localized: "weekday.friday"),
-            String(localized: "weekday.saturday"),
+            String(localized: "weekday.sunday", locale: outputLocale),
+            String(localized: "weekday.monday", locale: outputLocale),
+            String(localized: "weekday.tuesday", locale: outputLocale),
+            String(localized: "weekday.wednesday", locale: outputLocale),
+            String(localized: "weekday.thursday", locale: outputLocale),
+            String(localized: "weekday.friday", locale: outputLocale),
+            String(localized: "weekday.saturday", locale: outputLocale),
         ]
     }
 
