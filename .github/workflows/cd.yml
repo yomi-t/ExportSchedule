@@ -20,6 +20,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          
+      - name: Create Secrets.xcconfig
+        run: |
+          cat << EOF > Secrets.xcconfig
+          GID_CLIENT_ID = ${{ secrets.GID_CLIENT_ID }}
+          GID_REVERSED_CLIENT_ID = ${{ secrets.GID_REVERSED_CLIENT_ID }}
+          EOF
 
       - name: Release to App Store Connect
         env:

@@ -19,13 +19,6 @@
 			remoteGlobalIDString = 94F9F1813008BF730070EB20;
 			remoteInfo = ExportSchedule;
 		};
-		94F9F19A3008BF760070EB20 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 94F9F17A3008BF730070EB20 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 94F9F1813008BF730070EB20;
-			remoteInfo = ExportSchedule;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +41,6 @@
 		94E25287301B1CD10043109B /* release_notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		94F9F1823008BF730070EB20 /* ExportSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExportSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExportScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -60,11 +52,6 @@
 		94F9F1923008BF760070EB20 /* ExportScheduleTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ExportScheduleTests;
-			sourceTree = "<group>";
-		};
-		94F9F19C3008BF760070EB20 /* ExportScheduleUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ExportScheduleUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -80,13 +67,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		94F9F18C3008BF760070EB20 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		94F9F1963008BF760070EB20 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -206,7 +186,6 @@
 			children = (
 				94F9F1843008BF730070EB20 /* ExportSchedule */,
 				94F9F1923008BF760070EB20 /* ExportScheduleTests */,
-				94F9F19C3008BF760070EB20 /* ExportScheduleUITests */,
 				94E24E46301908DC0043109B /* AGENTS.md */,
 				94E24E47301908DC0043109B /* CLAUDE.md */,
 				15858AD165936B0C32DAF43E /* Secrets.xcconfig */,
@@ -224,7 +203,6 @@
 			children = (
 				94F9F1823008BF730070EB20 /* ExportSchedule.app */,
 				94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */,
-				94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,29 +257,6 @@
 			productReference = 94F9F18F3008BF760070EB20 /* ExportScheduleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		94F9F1983008BF760070EB20 /* ExportScheduleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 94F9F1A93008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportScheduleUITests" */;
-			buildPhases = (
-				94F9F1953008BF760070EB20 /* Sources */,
-				94F9F1963008BF760070EB20 /* Frameworks */,
-				94F9F1973008BF760070EB20 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				94F9F19B3008BF760070EB20 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				94F9F19C3008BF760070EB20 /* ExportScheduleUITests */,
-			);
-			name = ExportScheduleUITests;
-			packageProductDependencies = (
-			);
-			productName = ExportScheduleUITests;
-			productReference = 94F9F1993008BF760070EB20 /* ExportScheduleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -316,10 +271,6 @@
 						CreatedOnToolsVersion = 26.6;
 					};
 					94F9F18E3008BF760070EB20 = {
-						CreatedOnToolsVersion = 26.6;
-						TestTargetID = 94F9F1813008BF730070EB20;
-					};
-					94F9F1983008BF760070EB20 = {
 						CreatedOnToolsVersion = 26.6;
 						TestTargetID = 94F9F1813008BF730070EB20;
 					};
@@ -345,7 +296,6 @@
 			targets = (
 				94F9F1813008BF730070EB20 /* ExportSchedule */,
 				94F9F18E3008BF760070EB20 /* ExportScheduleTests */,
-				94F9F1983008BF760070EB20 /* ExportScheduleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -359,13 +309,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		94F9F18D3008BF760070EB20 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		94F9F1973008BF760070EB20 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -389,13 +332,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94F9F1953008BF760070EB20 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -403,11 +339,6 @@
 			isa = PBXTargetDependency;
 			target = 94F9F1813008BF730070EB20 /* ExportSchedule */;
 			targetProxy = 94F9F1903008BF760070EB20 /* PBXContainerItemProxy */;
-		};
-		94F9F19B3008BF760070EB20 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 94F9F1813008BF730070EB20 /* ExportSchedule */;
-			targetProxy = 94F9F19A3008BF760070EB20 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -653,46 +584,6 @@
 			};
 			name = Release;
 		};
-		94F9F1AA3008BF760070EB20 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportScheduleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ExportSchedule;
-			};
-			name = Debug;
-		};
-		94F9F1AB3008BF760070EB20 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.taiga.ito.ExportScheduleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ExportSchedule;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -719,15 +610,6 @@
 			buildConfigurations = (
 				94F9F1A73008BF760070EB20 /* Debug */,
 				94F9F1A83008BF760070EB20 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		94F9F1A93008BF760070EB20 /* Build configuration list for PBXNativeTarget "ExportScheduleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				94F9F1AA3008BF760070EB20 /* Debug */,
-				94F9F1AB3008BF760070EB20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

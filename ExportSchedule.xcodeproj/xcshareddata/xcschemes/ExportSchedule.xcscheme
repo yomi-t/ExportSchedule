@@ -40,16 +40,6 @@
                ReferencedContainer = "container:ExportSchedule.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "94F9F1983008BF760070EB20"
-               BuildableName = "ExportScheduleUITests.xctest"
-               BlueprintName = "ExportScheduleUITests"
-               ReferencedContainer = "container:ExportSchedule.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
