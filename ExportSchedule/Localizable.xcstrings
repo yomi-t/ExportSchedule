@@ -35,6 +35,23 @@
         }
       }
     },
+    "content.tab.debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバッグ"
+          }
+        }
+      }
+    },
     "content.tab.main" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -65,6 +82,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定"
+          }
+        }
+      }
+    },
+    "debug.calendarSourceOnboarding.footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn this off and relaunch the app to see the first-launch calendar source picker again."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OFF にしてアプリを再起動すると、初回起動時のカレンダーソース選択シートを再度表示できます。"
+          }
+        }
+      }
+    },
+    "debug.calendarSourceOnboarding.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Initial Calendar Source Selection"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "初回カレンダーソース選択"
+          }
+        }
+      }
+    },
+    "debug.calendarSourceOnboarding.toggle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as Completed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択済みとして扱う"
           }
         }
       }
@@ -235,6 +303,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "（無題）"
+          }
+        }
+      }
+    },
+    "onboarding.calendarSource.confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "決定"
+          }
+        }
+      }
+    },
+    "onboarding.calendarSource.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose which calendar to use. You can change this later from the Settings tab."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "予定の取得元を選んでください。「設定」タブからいつでも変更できます。"
+          }
+        }
+      }
+    },
+    "onboarding.calendarSource.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Your Calendar"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カレンダーの取得元を選択"
           }
         }
       }
