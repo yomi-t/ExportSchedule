@@ -6,11 +6,22 @@
 //
 
 import SwiftUI
-#if canImport(UIKit)
-import UIKit
-#endif
 
 struct ContentView: View {
+    /// 画面上部の segmented Picker で切り替える表示モード。
+    private enum Mode: String, CaseIterable {
+        case freeTime
+        case freeDays
+
+        var label: LocalizedStringKey {
+            switch self {
+            case .freeTime: "content.mode.freeTime"
+            case .freeDays: "content.mode.freeDays"
+            }
+        }
+    }
+
+    @State private var selectedMode: Mode = .freeTime
     @State private var viewModel = ScheduleViewModel()
     /// プログラムによるスクロール制御用の位置。
     @State private var scrollPosition = ScrollPosition()
@@ -42,110 +53,91 @@ struct ContentView: View {
     /// 「メイン」タブの表示内容（設定・生成・プレビュー・出力）。
     private var mainContent: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    SettingsSectionView(viewModel: viewModel)
-
-                    //            Section {
-                    Button {
-                        Task {
-                            await viewModel.generate()
-                            // 出力に成功したら現在位置から 400pt 下へスクロールする。
-                            if viewModel.errorMessage == nil {
-                                withAnimation {
-                                    scrollPosition.scrollTo(y: scrollOffsetY + 400)
-                                }
-                            }
-                        }
-                    } label: {
-                        if viewModel.isLoading {
-                            ProgressView()
-                                .frame(maxWidth: .infinity)
-                        } else {
-                            Text("action.exportFreeTime")
-                                .padding()
-                                .bold()
-                                .frame(maxWidth: .infinity)
-                                .foregroundStyle(.white)
-                                .glassEffect(.regular.tint(.appBlue).interactive())
-                        }
+            VStack(spacing: 0) {
+                Picker("content.mode.picker", selection: $selectedMode) {
+                    ForEach(Mode.allCases, id: \.self) { mode in
+                        Text(mode.label).tag(mode)
                     }
-                    .disabled(viewModel.isLoading)
-                    Text("content.calendarSyncNotice")
-                        .foregroundStyle(.secondary)
-                        .font(.footnote)
-
-                    SchedulePreviewView(viewModel: viewModel)
-
-                    OutputSectionView(viewModel: viewModel)
                 }
-                .padding(.vertical, 30)
+                .pickerStyle(.segmented)
                 .padding(.horizontal, 20)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-    #if os(iOS)
-                // キーボード外をタップしたらキーボードを閉じる。
-                // ウィンドウへ cancelsTouchesInView = false のタップ認識を載せることで、
-                // ボタンやスクロールなどのタップを妨げずに編集を終了できる。
-                .onAppear { KeyboardDismisser.install() }
-    #endif
-    #if os(macOS)
-                .frame(minWidth: 420, minHeight: 560)
-    #endif
+                .padding(.top, 12)
+                .padding(.bottom, 8)
+
+                switch selectedMode {
+                case .freeTime:
+                    freeTimeContent
+                case .freeDays:
+                    FreeDaysExportView()
+                }
             }
             .background(.base)
-            .scrollPosition($scrollPosition)
-            // スクロール位置の変化を追跡し、相対スクロールの基準値を更新する。
-            .onScrollGeometryChange(for: CGFloat.self) { geometry in
-                geometry.contentOffset.y
-            } action: { _, newValue in
-                scrollOffsetY = newValue
+            .navigationTitle(selectedMode.label)
+        }
+    }
+
+    /// 「空き時間」モードの表示内容（既存の設定・生成・プレビュー・出力）。
+    private var freeTimeContent: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                SettingsSectionView(viewModel: viewModel)
+
+                //            Section {
+                Button {
+                    Task {
+                        await viewModel.generate()
+                        // 出力に成功したら現在位置から 400pt 下へスクロールする。
+                        if viewModel.errorMessage == nil {
+                            withAnimation {
+                                scrollPosition.scrollTo(y: scrollOffsetY + 400)
+                            }
+                        }
+                    }
+                } label: {
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        Text("action.exportFreeTime")
+                            .padding()
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .foregroundStyle(.white)
+                            .glassEffect(.regular.tint(.appBlue).interactive())
+                    }
+                }
+                .disabled(viewModel.isLoading)
+                Text("content.calendarSyncNotice")
+                    .foregroundStyle(.secondary)
+                    .font(.footnote)
+
+                SchedulePreviewView(viewModel: viewModel)
+
+                OutputSectionView(viewModel: viewModel)
             }
-            .navigationTitle("action.exportFreeTime")
-        }
-    }
-}
-
+            .padding(.vertical, 30)
+            .padding(.horizontal, 20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 #if os(iOS)
-/// キーウィンドウに「タップで編集終了」のジェスチャを一度だけ取り付けるヘルパー。
-private final class KeyboardDismisser: NSObject, UIGestureRecognizerDelegate {
-    private static let shared = KeyboardDismisser()
-    private static let recognizerName = "hideKeyboardTap"
-
-    static func install() {
-        guard let window = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .flatMap({ $0.windows })
-            .first(where: { $0.isKeyWindow }) else { return }
-
-        // 二重登録を避ける。
-        if window.gestureRecognizers?.contains(where: { $0.name == recognizerName }) == true { return }
-
-        let tap = UITapGestureRecognizer(target: window, action: #selector(UIView.endEditing))
-        tap.name = recognizerName
-        tap.cancelsTouchesInView = false   // ボタン等のタップを妨げない
-        tap.delegate = shared
-        window.addGestureRecognizer(tap)
-    }
-
-    // ボタン・スクロールなど他のジェスチャと同時に認識させる。
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
-        true
-    }
-
-    // TextEditor（UITextView）などのテキスト入力上のタップでは閉じない。
-    // それ以外（キーボード外かつ TextEditor 外）のタップのときだけジェスチャを受け取る。
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldReceive touch: UITouch) -> Bool {
-        var view = touch.view
-        while let current = view {
-            if current is UITextView || current is UITextField { return false }
-            view = current.superview
+            // キーボード外をタップしたらキーボードを閉じる。
+            // ウィンドウへ cancelsTouchesInView = false のタップ認識を載せることで、
+            // ボタンやスクロールなどのタップを妨げずに編集を終了できる。
+            .onAppear { KeyboardDismisser.install() }
+#endif
+#if os(macOS)
+            .frame(minWidth: 420, minHeight: 560)
+#endif
         }
-        return true
+        .background(.base)
+        .scrollPosition($scrollPosition)
+        // スクロール位置の変化を追跡し、相対スクロールの基準値を更新する。
+        .onScrollGeometryChange(for: CGFloat.self) { geometry in
+            geometry.contentOffset.y
+        } action: { _, newValue in
+            scrollOffsetY = newValue
+        }
     }
 }
-#endif
 
 #Preview {
     ContentView()

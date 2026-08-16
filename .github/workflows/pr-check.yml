@@ -1,0 +1,58 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Run tests
+        run: |
+          xcodebuild test \
+            -project ExportSchedule.xcodeproj \
+            -scheme ExportSchedule \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest'
+
+  release-readiness:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check version bump and release notes
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+
+          BASE_VERSION=$(git show "origin/${BASE_REF}:ExportSchedule.xcodeproj/project.pbxproj" | grep -m1 'MARKETING_VERSION' | sed -E 's/.*= (.*);/\1/')
+          HEAD_VERSION=$(grep -m1 'MARKETING_VERSION' ExportSchedule.xcodeproj/project.pbxproj | sed -E 's/.*= (.*);/\1/')
+
+          if [ "$BASE_VERSION" = "$HEAD_VERSION" ]; then
+            echo "::error::MARKETING_VERSION が更新されていません (現在: ${HEAD_VERSION})"
+            exit 1
+          fi
+          echo "MARKETING_VERSION: ${BASE_VERSION} -> ${HEAD_VERSION}"
+
+          CHANGED_FILES=$(git diff --name-only "origin/${BASE_REF}...HEAD")
+
+          for notes in fastlane/metadata/*/release_notes.txt; do
+            if echo "$CHANGED_FILES" | grep -qx "$notes"; then
+              echo "${notes} が更新されています"
+            else
+              echo "::error::${notes} が更新されていません"
+              exit 1
+            fi
+          done
